@@ -1,0 +1,35 @@
+{
+ "proof": "rails-authority",
+ "at": "2026-10-08T20:55:00Z",
+ "method": "on-chain authority cross-check (condenser_api.get_accounts) vs keys derived in-memory from custody (fleet-vault wraps → fleet_keys.enc + saos-dex/.env); zero secret material in this receipt",
+ "chainMatches": {
+  "steem": { "account": "headcorner", "role": "posting", "match": true, "source": "STEEM_POSTING_WIF" },
+  "blurt": { "account": "headcorner", "role": "active", "match": true, "source": "BLURT_ACTIVE_WIF" },
+  "hive": { "match": false, "note": "whale-verdict stands for HIVE authorities (0/4); rail had 1 historical verified anchor; now RC-mana throttled" },
+  "eth": { "address": "0x2767e8146c11baD1d9B0784f11325375195c1b0f", "match": true, "source": "wallets-registry headcorner pk (address re-derived and compared)" },
+  "sol": { "address": "Dt3jHATbuPTAnpXtcJrvynyZYzQ3Q42L2KGHGVzeaM3n", "match": "self-consistent", "source": "SLIP-0010 m/44'/501'/0'/0'/2' from custody wallets-seed.json" }
+ },
+ "liveRelay": {
+  "account": "headcorner",
+  "railsEnabled": "7/7 (steem,hive,blurt,tron,eth,sol,fleet)",
+  "identities": { "eth": "0x2767e8146c11baD1d9B0784f11325375195c1b0f", "sol": "Dt3jHATbuPTAnpXtcJrvynyZYzQ3Q42L2KGHGVzeaM3n", "tron": "TM1dgrVHMaHVTrBgyU2BiaSrM5sWegtA4r" },
+  "steemAnchored": "live after restart (anchoring; prior run: 85 anchored / 84 verified / 0 mismatches)"
+ },
+ "remainingBlockers": {
+  "class": "fuel/economy (NOT keys/custody)",
+  "hive": "RC mana on headcorner — needs HP stake or delegation",
+  "blurt": "account balance 0.083 BLURT — fee floor not met",
+  "tron": "0 sun — bandwidth floor 0.3 TRX",
+  "eth/sol": "unfunded-policy gate (by design until funded)"
+ },
+ "custody": {
+  "vault": "roshpinacare-sys/fleet-vault",
+  "railsSeal": "rails.env.enc v2 (10 slots) commit c5b4758 — tokened truth YES",
+  "deployKey": "sovereign-deploy-r2 registered (write) — Tier-1 never-expiring pull",
+  "drill": "credential-drill PASS 5/5 in 1.9s; cadence every 2h started"
+ },
+ "sealInvestigation": {
+  "KEYS-SEED-2026-10-04": "not found after 3 deep iterations (disk, mother history, 5 repos incl Zip) — DEFUNCT as archive; its functional content (wallets-seed.json 48B master seed) lives in fleet_keys.enc custody and was used to derive SOL",
+  "KEYS-ZIP-2026-10-08": "same verdict; passphrases+digests recorded in recovery-meta"
+ }
+}

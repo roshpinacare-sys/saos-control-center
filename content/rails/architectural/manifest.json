@@ -1,0 +1,12 @@
+{
+ "schema": "saos.content-rail/1",
+ "rail": "architectural",
+ "status": "SCAFFOLDED-AWAITING-CONTENT (honest — zero fabricated posts)",
+ "itemsDir": "content/rails/architectural/items/",
+ "itemFormat": "YYYY-MM-DD-<slug>.md with mandatory front-matter (rail, slug, compiledFrom, booksRoot, at, status)",
+ "lineageSource": "receipts/books-lineage.json — booksRoot must equal chained head before commit",
+ "broadcastPolicy": "OWNER-GATED — staging only, zero auto-broadcast (venue gate held)",
+ "fleetPolicy": "centralized in FleetHQ — sibling repos inherit via git lineage, no duplication",
+ "doctrine": "measured-metrics-only content · zero secrets · zero fabrication",
+ "keysLeaked": false
+}

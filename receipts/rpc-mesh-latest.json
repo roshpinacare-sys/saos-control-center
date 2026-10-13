@@ -1,0 +1,67 @@
+{
+ "schema": "saos.rpc-mesh/2",
+ "at": "2026-10-10T15:12:47.788Z",
+ "method": "dgp probe · sort: ok desc, broadcast-successRate desc (unmeasured after measured), latency asc · min-3-attempts",
+ "ranked": {
+  "steem": [
+   {
+    "node": "https://api.justyy.com",
+    "ok": true,
+    "latencyMs": 615,
+    "successRate": null
+   },
+   {
+    "node": "https://api.steemit.com",
+    "ok": true,
+    "latencyMs": 865,
+    "successRate": null
+   },
+   {
+    "node": "https://steemapi.boylikegirl.club",
+    "ok": true,
+    "latencyMs": 1413,
+    "successRate": null
+   },
+   {
+    "node": "https://steem.crypto-fans.com",
+    "ok": false,
+    "latencyMs": 42,
+    "successRate": null
+   }
+  ],
+  "hive": [
+   {
+    "node": "https://api.deathwing.me",
+    "ok": true,
+    "latencyMs": 258,
+    "successRate": null
+   },
+   {
+    "node": "https://api.hive.blog",
+    "ok": true,
+    "latencyMs": 1984,
+    "successRate": null
+   }
+  ],
+  "blurt": [
+   {
+    "node": "https://rpc.blurt.blog",
+    "ok": true,
+    "latencyMs": 318,
+    "successRate": null
+   }
+  ]
+ },
+ "successMetrics": {},
+ "latencyLog": {
+  "path": "saos-dex/tx/broadcast-latency.jsonl",
+  "schema": "saos.tx-latency/1",
+  "drainedToTail": 512
+ },
+ "consumers": [
+  "revenue-router (live failover order)",
+  "witness-watchdog (informational)",
+  "any-agent (public receipt)"
+ ],
+ "keysLeaked": false
+}

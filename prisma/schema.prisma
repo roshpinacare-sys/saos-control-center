@@ -1,0 +1,309 @@
+// SAOS Sovereign Foundry v2 — data model
+// The platform state: sovereign chain seals, public anchors, energy plans,
+// economy simulations, evidence receipts and the research verdict ledger.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Sovereign chain: sealing roots (שורשי-האיטום) ────────────────────────────
+
+model SealRecord {
+  id          String       @id @default(cuid())
+  height      Int          @unique @default(0) // chain height at seal time
+  root        String       @unique // merkle root of the batch (hex)
+  leavesCount Int
+  stateRoot   String // sha256 of canonical kernel state
+  gasUsed     Int          @default(0)
+  note        String?
+  createdAt   DateTime     @default(now())
+  anchors     AnchorTx[]
+  leaves      SealLeaf[]
+  receipts    EvidenceReceipt[]
+
+  @@index([createdAt])
+}
+
+model SealLeaf {
+  id      String     @id @default(cuid())
+  sealId  String
+  seal    SealRecord @relation(fields: [sealId], references: [id], onDelete: Cascade)
+  index   Int
+  kind    String // stamp | seal | harvest | relay | wallet
+  payload String // canonical JSON of the leaf
+  digest  String // sha256 of canonical payload
+
+  @@unique([sealId, index])
+  @@index([digest])
+}
+
+// ─── Public anchoring (העגינה הציבורית) ──────────────────────────────────────
+
+model AnchorTx {
+  id        String      @id @default(cuid())
+  sealId    String?
+  seal      SealRecord? @relation(fields: [sealId], references: [id])
+  network   String // STEEM | BLURT | HIVE | TRON
+  kind      String // weave | checkpoint | identity
+  txid      String? // null while pending/gated — honest, never fabricated
+  status    String // anchored | pending | gated | transit
+  gate      String? // why not anchored yet (rc-floor, cooldown, energy-0 ...)
+  meta      String? // JSON extras (rc %, energy, cooldown minutes...)
+  createdAt DateTime    @default(now())
+
+  @@index([network, status])
+  @@index([sealId])
+}
+
+// ─── Energy sovereignty (ריבונות אנרגיה) ─────────────────────────────────────
+
+model EnergyPlan {
+  id          String   @id @default(cuid())
+  network     String // TRON | HIVE
+  mode        String // energize | powerup | delegate
+  trxStaked   Int? // sun
+  energyOut   Int? // estimated daily energy
+  settlements Int? // USDT settlements per day (~65k energy each)
+  burnCost    Int? // sun/day if no staking
+  rcFloorPct  Float? // hive floors
+  notes       String?
+  payload     String // full canonical plan JSON
+  createdAt   DateTime @default(now())
+}
+
+// ─── Economy (המשק — harvest & grid) ────────────────────────────────────────
+
+model EconomySnapshot {
+  id          String   @id @default(cuid())
+  label       String
+  inputs      String // canonical JSON inputs
+  streams     String // JSON per-stream output
+  totalPerDay Float
+  flywheelPct Float
+  createdAt   DateTime @default(now())
+}
+
+// ─── Evidence (ראיות — hash-chained receipts) ────────────────────────────────
+
+model EvidenceReceipt {
+  id         String      @id @default(cuid())
+  kind       String // seal | selftest | verify-pack | energy-plan | economy-sim
+  digest     String      @unique
+  prevDigest String?
+  payload    String
+  seal       SealRecord? @relation(fields: [sealId], references: [id])
+  sealId     String?
+  createdAt  DateTime    @default(now())
+
+  @@index([kind])
+  // FIX(Roast-65-b · M10): verify-pack טוען-הכל-ממוין לפי-createdAt בכל-איטום
+  // ו-seal קורא-tip — סריקה-מלאה-ומיון-בכל-פעם בלי-אינדקס.
+  @@index([createdAt])
+}
+
+// ─── Research verdict ledger (פסק-הדין של המחקר) ─────────────────────────────
+
+model ResearchFinding {
+  id       String @id @default(cuid())
+  archive  String @unique
+  rank     Int
+  score    Int // 0..100 trailblazer score
+  verdict  String
+  salvage  String // JSON top salvage items
+  evidence String // JSON validation evidence
+}
+
+// ─── Ops audit (יומן תפעול) ─────────────────────────────────────────────────
+
+model OpLog {
+  id        String   @id @default(cuid())
+  op        String
+  detail    String?
+  createdAt DateTime @default(now())
+
+  @@index([op])
+}
+
+// ─── Sovereign Key Vault (כספת-המפתחות — חומר רק מוצפן) ─────────────────────
+
+model VaultKey {
+  id             String    @id @default(cuid())
+  account        String // headcorner / cashmachine / wallet:headcorner-evm ...
+  chain          String // steem | hive | evm | tron | sol | btc | seed | mnemonic
+  role           String // owner | active | posting | memo | wallet | seed | mnemonic
+  pubKey         String? // STM... for steem/hive
+  address        String? // wallet address
+  cipher         String // AES-256-GCM "iv:tag:ct" hex — plaintext NEVER stored
+  fingerprint    String // sha256(plaintext)[:16] — id without exposure
+  verified       Boolean   @default(false)
+  lastVerifiedAt DateTime?
+  lastError      String?
+  source         String    @default("import")
+  note           String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@unique([account, chain, role])
+  @@index([account])
+}
+
+// ─── Sessions (התחברות — נשאר מחובר) ─────────────────────────────────────────
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique // sha256 of the cookie token
+  label     String   @default("operator")
+  scope     String   @default("owner") // owner | agent
+  keyRef    String? // which vault key opened it
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+}
+
+// ─── Agent mesh (סוכנים חיצוניים דרך API) ────────────────────────────────────
+
+model AgentNode {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  tokenHash    String    @unique
+  capabilities String    @default("") // csv: chat,task,execute-post
+  status       String    @default("active") // active | suspended | revoked
+  lastSeenAt   DateTime?
+  createdAt    DateTime  @default(now())
+}
+
+// ─── Shared chat (צ'אט משותף בעלים⇄סוכנים) ───────────────────────────────────
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  author    String // "owner" | agent name | "system"
+  role      String // owner | agent | system
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// ─── Tasks (משימות לסוכנים) ──────────────────────────────────────────────────
+
+model TaskItem {
+  id         String   @id @default(cuid())
+  title      String
+  detail     String   @default("")
+  createdBy  String // owner | agent name
+  assignedTo String   @default("") // agent name or "" = open
+  status     String   @default("open") // open | claimed | done | failed
+  result     String   @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status])
+}
+
+// EXEC-CD-31 · כלכלת-הסוכנים (THE AGENT ECONOMY) — תור-הבונטים + פנקס-התשלומים:
+// סוכנים (חיצוניים דרך-AgentNode · לגיון דרך-auto-claim) מבצעים עבודה-אמת
+// (דוחות-מדידה · קוד-מוכח-בגיט · פעילות-מסחר) → בונטי-דטרמיניסטי → תשלום-אמת
+// מהאוצר לארנק-הסוכן על שרשרת-הדקס → הסוכן סוחר → עמלות → סולם-העתודה.
+// כל-שלב מניח-את-הבא — הפליוויל שהופך-פעילות-לערך. כנות: evidence נבדק-מול-מציאות
+// (report-מול-מדידה-חיה · code-מול-git · trade-מול-ספירת-המנוע) — מה-שלא-מאומת לא-משולם.
+model AgentBounty {
+  id          String    @id @default(cuid())
+  title       String
+  category    String // ops | research | guard | code | trade
+  detail      String    @default("")
+  rewardMu    Int // µ-USDS — דטרמיניסטי לפי-קטגוריה
+  status      String    @default("open") // open | claimed | done | paid | failed | expired
+  agent       String    @default("") // שם-ארנק-הסוכן על שרשרת-הדקס
+  evidence    String    @default("") // JSON קנוני: הראיה שנבדקת-מול-מציאות
+  verifyNote  String    @default("") // תוצאת-האימות (כנה — כולל-סירובים)
+  engineNote  String    @default("") // תוצאת-ההעברה במנוע (ok/reject + סיבה)
+  payAttempts Int       @default(0)
+  claimedAt   DateTime?
+  completedAt DateTime?
+  paidAt      DateTime?
+  expiresAt   DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status, createdAt])
+  @@index([category, status])
+  @@index([agent, paidAt])
+}
+
+// ─── Audit + Guard (שלא יקרה שוב) ────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  detail    String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([action])
+  @@index([createdAt])
+}
+
+model GuardState {
+  id        String   @id @default("singleton")
+  ownerLock Boolean  @default(true) // ON = no owner-authority mutations ever without explicit operator unlock
+  note      String   @default("")
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Treasury Watcher (צופה-האוצר · EXEC-CD-26) ─────────────────────────────
+// הריבונות עוקבת-בעצמה אחרי-יתרות-כתובות-כספת-הריפו (קריאה-ציבורית-בלבד — אפס-סודות).
+// TreasurySighting = תצפית-יתרה בזמן-T; TreasuryEvent = שינוי-יתרה (מימון/שריפה) שהתגלה.
+
+model TreasurySighting {
+  id           String   @id @default(cuid())
+  network      String // evm | tron | bitcoin | solana
+  address      String
+  ok           Boolean
+  balanceRaw   String   @default("0") // יחידות-מינימליות (wei/sun/sat/lamports) — מדויק
+  balanceHuman String? // ייצוג-אנושי ("0.0137")
+  unit         String?
+  latencyMs    Int?
+  error        String?
+  checkedAt    DateTime @default(now())
+
+  @@index([network, checkedAt])
+  @@index([checkedAt])
+}
+
+model TreasuryEvent {
+  id         String   @id @default(cuid())
+  network    String
+  address    String
+  kind       String // funding | decrease | probe-error
+  deltaHuman String // ההפרש-האנושי ("+0.5", "-0.01")
+  balanceHuman String? // היתרה-לאחר-השינוי
+  unit       String
+  note       String   @default("")
+  seenAt     DateTime @default(now())
+
+  @@index([network, seenAt])
+  @@index([seenAt])
+}
+
+// EXEC-CD-30 · מנוע-הערך-האמתי — תמונות-מצב של שטיפת-הערך (פנימי → אמיתי):
+// כל-פעימה קובעת את היחס בין הערך-הפנימי של הדקס לערך-האמת-על-השרשראות,
+// כדי-שהצעד-צעד יהיה מדיד (מ"מטבע-בית" עד "רלוונטיות").
+model ValueSnapshot {
+  id           String   @id @default(cuid())
+  height       Int      // גובה-שרשרת-הדקס בעת-המדידה
+  phase        Int      // מדרגת-סולם-העתודה (0..4)
+  supplyMu     BigInt   // היצע-פנימי (µ$)
+  unitMu       BigInt   // רצפת-יחידה בכספת-העתודה (µ$)
+  realMu       BigInt   // גיבוי-דלת-אמת בכספת-העתודה (µ$)
+  unitBps      Int      // unitMu/supplyMu ב-bps
+  realBps      Int      // realMu/supplyMu ב-bps
+  realUsdMicro BigInt   // שווי-האוצר-האמיתי-על-השרשראות ב-micro-דולר
+  notes        String   @default("") // פורנזי: שערים-שנפתחו/גירעונות-מורשת
+  takenAt      DateTime @default(now())
+
+  @@index([takenAt])
+}

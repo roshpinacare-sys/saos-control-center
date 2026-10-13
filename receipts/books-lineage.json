@@ -1,0 +1,31 @@
+{
+ "schema": "saos.books-lineage/1",
+ "at": "2026-10-10T10:11:30.168Z",
+ "head": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+ "chain": [
+  {
+   "at": "2026-10-09T01:28:14.657Z",
+   "root": "7fac61b367c6496e8dcd1a846776708d378b25cd1a442a33696c56af9507b277",
+   "prevRoot": "2c29dbc81919e0213ae29ee431a8ff44493678fad4d26579f6d12679df27ed1e",
+   "verdict": "CONTINUITY-PROVEN"
+  },
+  {
+   "at": "2026-10-09T22:05:52.691Z",
+   "root": "9a7d169268777471e22f10ce38764ad05b46a65ee21784c2524175ba5b278278",
+   "prevRoot": "7fac61b367c6496e8dcd1a846776708d378b25cd1a442a33696c56af9507b277",
+   "verdict": "CONTINUITY-PROVEN"
+  },
+  {
+   "at": "2026-10-10T04:08:24.782Z",
+   "root": "191b55abb0560d0bc8101e65e820393fc8197794ce6aa3c2df56796b2da14f3a",
+   "prevRoot": "9a7d169268777471e22f10ce38764ad05b46a65ee21784c2524175ba5b278278",
+   "verdict": "CONTINUITY-PROVEN"
+  },
+  {
+   "at": "2026-10-10T10:11:29.240Z",
+   "root": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+   "prevRoot": "191b55abb0560d0bc8101e65e820393fc8197794ce6aa3c2df56796b2da14f3a",
+   "verdict": "CONTINUITY-PROVEN"
+  }
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "schema": "saos.revenue-router/1",
+ "at": "2026-10-09T00:04:36.120Z",
+ "account": "headcorner",
+ "doctrine": "steem-yield → sovereign treasury → cross-chain fuel (blurt/tron/evm/sol) — claim live-zero-cost · liquidation payloads structured · venue-pending honest",
+ "yield": {
+  "rewards": {
+   "steem": 0,
+   "sbd": 0,
+   "vesting": 0
+  },
+  "liquid": {
+   "steem": 4.151,
+   "sbd": 0.724
+  }
+ },
+ "claim": null,
+ "claimError": null,
+ "spread": {
+  "status": "measured (read-only)",
+  "pricesUsd": {
+   "steem": 0.059905,
+   "blurt": 0.00130526,
+   "tron": 0.332454
+  },
+  "treasuryUsd": 0.24866565499999999,
+  "impliedIfLiquidated": {
+   "blurtBuyable": 190.510438,
+   "tronBuyable": 0.74797
+  },
+  "doctrine": "measurement-only — feeds venue decision · zero execution (charter: venue-pending owner decision)"
+ },
+ "packages": [
+  {
+   "id": "PKG-STEEM-LIQUIDATION",
+   "kind": "liquidation-payload",
+   "source": {
+    "chain": "steem",
+    "account": "headcorner",
+    "liquid": {
+     "steem": 4.151,
+     "sbd": 0.724
+    },
+    "note": "post-claim treasury"
+   },
+   "routePlan": [
+    {
+     "step": 1,
+     "from": "steem-liquid",
+     "to": "venue",
+     "status": "venue-pending (owner decision — charter: no unauthorized endpoints)"
+    },
+    {
+     "step": 2,
+     "from": "venue",
+     "to": "blurt-army-funding",
+     "status": "awaiting-venue"
+    },
+    {
+     "step": 3,
+     "from": "venue",
+     "to": "tron-gas",
+     "status": "awaiting-venue"
+    },
+    {
+     "step": 4,
+     "from": "venue",
+     "to": "evm-sol-gas",
+     "status": "awaiting-venue"
+    }
+   ],
+   "targets": {
+    "blurt": {
+     "primary": 0.083,
+     "armyUnfunded": 2,
+     "lowest": [
+      {
+       "username": "ynet",
+       "balance": 0.002
+      },
+      {
+       "username": "headcorner",
+       "balance": 0.083
+      }
+     ]
+    },
+    "tron": {
+     "sun": 0
+    },
+    "eth": {
+     "wei": "0",
+     "status": "awaiting-funding"
+    },
+    "sol": {
+     "lamports": 0,
+     "status": "awaiting-funding (recompile-on-fund — blockhash stale by then)"
+    }
+   },
+   "broadcastReady": true,
+   "status": "BROADCAST-READY-INTERNAL (execution gate: venue decision — honest queue, no unauthorized endpoints)"
+  }
+ ],
+ "routing": {
+  "steemNodes": 2,
+  "blurtNodes": 1,
+  "failover": "per-call circuit override (429/timeout → next node)"
+ },
+ "keysLeaked": false,
+ "keyMaterialLogged": false
+}

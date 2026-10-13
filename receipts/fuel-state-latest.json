@@ -1,0 +1,45 @@
+{
+  "schema": "saos.fuel-state/1",
+  "at": "2026-10-11T13:18:02.995Z",
+  "doctrine": "fuel-only blockers — custody 7/7 proven (rails.env.enc v2 c5b4758); rotation engine rescues hive/steem/blurt fuel-failures from the vault army",
+  "engine": null,
+  "rails": null,
+  "metrics": null,
+  "fleet": null,
+  "primary": {
+    "account": "headcorner",
+    "hive": {
+      "rc": 7336461760.549662,
+      "rcMax": 42848564398,
+      "rcPct": 17.12,
+      "liquid": 0.034
+    },
+    "steem": {
+      "rc": 5770798377814.193,
+      "rcMax": 5928724021242,
+      "liquid": 137.317,
+      "sbd": 0.528,
+      "rewardSteem": 0,
+      "rewardSbd": 0,
+      "rewardVesting": 196.783232
+    },
+    "blurt": {
+      "balance": 0.083,
+      "vests": 7600.869321
+    },
+    "tron": {
+      "sun": null
+    },
+    "eth": {
+      "wei": null,
+      "address": null
+    },
+    "sol": {
+      "lamports": null,
+      "address": null
+    }
+  },
+  "blockers": [
+    "blurt:fee-balance (<1 BLURT)"
+  ]
+}

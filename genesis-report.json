@@ -1,0 +1,105 @@
+{
+  "startedAt": "2026-10-10T14:27:04.097Z",
+  "finishedAt": "2026-10-10T14:28:00.891Z",
+  "durationMs": 56794,
+  "verdict": "GENESIS-PARTIAL (2 fails)",
+  "steps": [
+    {
+      "name": "token",
+      "verdict": "ok",
+      "detail": "טוקן-חי ומאומת מול-GitHub",
+      "ms": 484
+    },
+    {
+      "name": "remotes",
+      "verdict": "ok",
+      "detail": "remotes מאומתים (טוקן-לא-נדפס)",
+      "ms": 30
+    },
+    {
+      "name": "ensure-dex",
+      "verdict": "already",
+      "detail": "saos-dex כבר-משוכפל",
+      "ms": 1
+    },
+    {
+      "name": "sync-mother",
+      "verdict": "ok",
+      "detail": "מאם מסונכרנת (rebase, אפס-דריסה)",
+      "ms": 1519
+    },
+    {
+      "name": "sync-dex",
+      "verdict": "ok",
+      "detail": "דקס מסונכרן (rebase, אפס-דריסה)",
+      "ms": 47457
+    },
+    {
+      "name": "deps",
+      "verdict": "already",
+      "detail": "node_modules קיימים בשניהם",
+      "ms": 1
+    },
+    {
+      "name": "prisma",
+      "verdict": "ok",
+      "detail": "prisma generate+push (מאם)",
+      "ms": 3711
+    },
+    {
+      "name": "repo-vault",
+      "verdict": "ok",
+      "detail": "כספת נפתחת מהריפו: GCM ✓ + נגזרה ביט-מול-ביט ✓",
+      "ms": 796
+    },
+    {
+      "name": "fleet-keys",
+      "verdict": "already",
+      "detail": "fleet_keys.enc קיים על-הדיסק",
+      "ms": 1
+    },
+    {
+      "name": "arm-hive",
+      "verdict": "already",
+      "detail": "HIVE_POSTING_WIF כבר-ב-.env",
+      "ms": 0
+    },
+    {
+      "name": "arm-steem-blurt",
+      "verdict": "already",
+      "detail": "STEEM+BLURT כבר-ב-.env",
+      "ms": 0
+    },
+    {
+      "name": "dex-db",
+      "verdict": "already",
+      "detail": "dex.db קיים (המנוע-טוען-את-ה-snapshot-המקומט ב-boot)",
+      "ms": 0
+    },
+    {
+      "name": "services",
+      "verdict": "ok",
+      "detail": "relay/governor/watchdog/state-push — אידמפוטנטי",
+      "ms": 183
+    },
+    {
+      "name": "cadences",
+      "verdict": "ok",
+      "detail": "witness=alive restoreDrill=alive proof=alive",
+      "ms": 38
+    },
+    {
+      "name": "verify-ports",
+      "verdict": "fail",
+      "detail": "engine-3010 down (mother=true)",
+      "ms": 78
+    },
+    {
+      "name": "verify-sync",
+      "verdict": "fail",
+      "detail": "sync: mother=false dex=true (state-push יתיישר)",
+      "ms": 2484
+    }
+  ],
+  "note": "אפס-סודות בדו\"ח — טביעות-אצבע ובוליאנים בלבד. כספת-הריפו=הבעלים; pat.env=המחווה-האנושית-היחידה."
+}

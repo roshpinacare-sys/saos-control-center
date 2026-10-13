@@ -1,0 +1,25 @@
+{
+ "schema": "saos.post-batcher/2",
+ "at": "2026-10-10T10:11:29.230Z",
+ "bookCount": 11,
+ "skipped": [],
+ "lineageRoot": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+ "leafCount": 11,
+ "lineageVerify": {
+  "verdict": "CONTINUITY-PROVEN",
+  "prevRoot": "191b55abb0560d0bc8101e65e820393fc8197794ce6aa3c2df56796b2da14f3a",
+  "prevRootMatchesLocal": true,
+  "prevRootMatchesRemote": true,
+  "remoteReceiptAt": "2026-10-10T04:08:24.768Z",
+  "checkedAt": "2026-10-10T10:11:29.240Z",
+  "channel": "origin/main (tokened — credential never printed)"
+ },
+ "compaction": {
+  "rawBytes": 363577,
+  "compactBytes": 4521,
+  "savedBytes": 359056
+ },
+ "staged": "saos-dex/state/broadcast-pending/post-batch-2026-10-10T10-11-29-230Z.json",
+ "status": "BROADCAST-READY (staging-only)",
+ "keysLeaked": false
+}

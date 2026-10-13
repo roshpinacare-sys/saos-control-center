@@ -1,0 +1,67 @@
+import { NextRequest, NextResponse } from "next/server";
+import { safeErr } from "@/lib/safe-error"; // FIX(R16-b·m5)
+import { db } from "@/lib/db";
+import { anchoringMatrix } from "@/lib/saos/anchor-gates";
+import { HISTORIC_ANCHORS } from "@/lib/saos/historic";
+
+export const dynamic = "force-dynamic";
+
+export async function GET(req: NextRequest) {
+  try {
+    const rcPct = Number(process.env.HIVE_RC_PCT ?? 0.6);
+    const tronEnergy = Number(process.env.TRON_ENERGY ?? 0);
+
+    const [seals, receipts, opCount, latestAnchors] = await Promise.all([
+      db.sealRecord.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 8,
+        include: { anchors: true, _count: { select: { leaves: true } } }
+      }),
+      db.evidenceReceipt.findMany({ orderBy: { createdAt: "desc" }, take: 10 }),
+      db.opLog.count(),
+      // FIX(Roast-63 · M1): סטטוס-עדכני-פר-רשת מהנתונים-האמת
+      db.anchorTx.findMany({ orderBy: { createdAt: "desc" }, take: 24, select: { network: true, status: true } })
+    ]);
+    const lastByNetwork: Record<string, string> = {};
+    for (const a of latestAnchors) if (!(a.network in lastByNetwork)) lastByNetwork[a.network] = a.status;
+
+    return NextResponse.json({
+      ok: true,
+      motto: "אנחנו מנצחים את הבלוקצ'יין",
+      matrix: anchoringMatrix(rcPct, tronEnergy, {
+        steem: lastByNetwork["STEEM"] ?? null,
+        blurt: lastByNetwork["BLURT"] ?? null,
+        hive: lastByNetwork["HIVE"] ?? null,
+      }),
+      historic: HISTORIC_ANCHORS,
+      seals: seals.map((s) => ({
+        id: s.id,
+        height: s.height,
+        root: s.root,
+        stateRoot: s.stateRoot,
+        leaves: s._count.leaves,
+        gasUsed: s.gasUsed,
+        createdAt: s.createdAt,
+        anchors: s.anchors.map((a) => ({
+          network: a.network,
+          status: a.status,
+          txid: a.txid,
+          gate: a.gate
+        }))
+      })),
+      receipts: receipts.map((r) => ({
+        kind: r.kind,
+        digest: r.digest,
+        prevDigest: r.prevDigest,
+        at: r.createdAt
+      })),
+      opsLogged: opCount
+    });
+  } catch (e) {
+    return NextResponse.json(
+      // FIX(R16-b·m5): פירוט-גולמי רק-לבעלים; אנונימי מקבל פסק כנה גנרי
+      await safeErr(req, e, "status failed"),
+      { status: 200 } // the API never 500s — errors are data
+    );
+  }
+}

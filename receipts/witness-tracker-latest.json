@@ -1,0 +1,385 @@
+{
+ "schema": "saos.witness-track/1",
+ "at": "2026-10-10T15:12:51.531Z",
+ "accountsSource": "receipts/authority-guard-latest.json (public usernames only — zero vault access)",
+ "nodeSource": "receipts/rpc-mesh-latest.json (live-ranked, <26h fresh)",
+ "chains": {
+  "steem": {
+   "accounts": [
+    {
+     "account": "cashmachine",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T14:56:54",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 355,
+     "status": "tracked"
+    },
+    {
+     "account": "haran",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T14:58:45",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 600,
+     "status": "tracked"
+    },
+    {
+     "account": "israelnews",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:04:09",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 360,
+     "status": "tracked"
+    },
+    {
+     "account": "lsa",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:04:12",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 355,
+     "status": "tracked"
+    },
+    {
+     "account": "macrame",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:01:00",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 358,
+     "status": "tracked"
+    },
+    {
+     "account": "siq",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T00:31:12",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 356,
+     "status": "tracked"
+    },
+    {
+     "account": "tov",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T00:31:27",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 359,
+     "status": "tracked"
+    },
+    {
+     "account": "wic",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T00:31:45",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 360,
+     "status": "tracked"
+    },
+    {
+     "account": "wog",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T11:20:33",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 649,
+     "status": "tracked"
+    },
+    {
+     "account": "woq",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:01:45",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 357,
+     "status": "tracked"
+    },
+    {
+     "account": "hcsoldier4",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:02:42",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 353,
+     "status": "tracked"
+    },
+    {
+     "account": "hcsoldier5",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T15:04:12",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.justyy.com",
+     "ms": 365,
+     "status": "tracked"
+    }
+   ],
+   "tracked": 12,
+   "unreachable": 0
+  },
+  "hive": {
+   "accounts": [
+    {
+     "account": "cashmachine",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 251,
+     "status": "tracked"
+    },
+    {
+     "account": "haran",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 233,
+     "status": "tracked"
+    },
+    {
+     "account": "israelnews",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 230,
+     "status": "tracked"
+    },
+    {
+     "account": "lsa",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 224,
+     "status": "tracked"
+    },
+    {
+     "account": "macrame",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 229,
+     "status": "tracked"
+    },
+    {
+     "account": "siq",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 224,
+     "status": "tracked"
+    },
+    {
+     "account": "wic",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 225,
+     "status": "tracked"
+    },
+    {
+     "account": "wog",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 230,
+     "status": "tracked"
+    },
+    {
+     "account": "woq",
+     "exists": true,
+     "recentOps": 0,
+     "lastOpAt": null,
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "api.deathwing.me",
+     "ms": 228,
+     "status": "tracked"
+    }
+   ],
+   "tracked": 9,
+   "unreachable": 0
+  },
+  "blurt": {
+   "accounts": [
+    {
+     "account": "cashmachine",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:09",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 280,
+     "status": "tracked"
+    },
+    {
+     "account": "haran",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:45",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 301,
+     "status": "tracked"
+    },
+    {
+     "account": "israelnews",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:45",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 327,
+     "status": "tracked"
+    },
+    {
+     "account": "lsa",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:48",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 285,
+     "status": "tracked"
+    },
+    {
+     "account": "macrame",
+     "exists": true,
+     "recentOps": 7,
+     "lastOpAt": "2026-10-08T17:22:51",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 305,
+     "status": "tracked"
+    },
+    {
+     "account": "siq",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:54",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 338,
+     "status": "tracked"
+    },
+    {
+     "account": "tov",
+     "exists": true,
+     "recentOps": 8,
+     "lastOpAt": "2026-10-08T17:22:54",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 281,
+     "status": "tracked"
+    },
+    {
+     "account": "wic",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:22:57",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 303,
+     "status": "tracked"
+    },
+    {
+     "account": "wog",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:23:00",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 1108,
+     "status": "tracked"
+    },
+    {
+     "account": "woq",
+     "exists": true,
+     "recentOps": 6,
+     "lastOpAt": "2026-10-08T17:23:03",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 284,
+     "status": "tracked"
+    },
+    {
+     "account": "headcorner",
+     "exists": true,
+     "recentOps": 11,
+     "lastOpAt": "2026-10-10T14:51:18",
+     "transfersIn": 0,
+     "transfersOut": 0,
+     "node": "rpc.blurt.blog",
+     "ms": 297,
+     "status": "tracked"
+    }
+   ],
+   "tracked": 11,
+   "unreachable": 0
+  }
+ },
+ "historyLog": {
+  "path": "receipts/witness-latency-history.jsonl",
+  "tail": 512,
+  "ceilingBytes": 150
+ },
+ "doctrine": "read-only telemetry · zero broadcast · zero secrets · prepares asset-routing fallback loops",
+ "keysLeaked": false
+}

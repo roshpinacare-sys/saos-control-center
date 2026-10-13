@@ -1,0 +1,10 @@
+{
+  "name": "dex-state-push",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAOS-DEX sovereign state cadence — pushes chain state (snapshot+tape+klines) to git every 20min. Git is the source of truth; sandbox is disposable. No port, pure loop. Token: same fail-loud path as heal.ts (pat.env -> sealed rar), never printed, never stored in git config.",
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
+  }
+}

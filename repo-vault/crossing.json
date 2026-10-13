@@ -1,0 +1,37 @@
+{
+  "kind": "sovereign-border-crossing",
+  "v": 1,
+  "exec": "EXEC-CD-29",
+  "at": "2026-10-07T22:05:00.000Z",
+  "verdict": "THE BORDER WAS CROSSED — real external on-chain value movement + real swap, signed by the sovereignty from the repo-vault envelope",
+  "facts": {
+    "secretsRescued": 40,
+    "source": "/tmp/saos-vault (keys0910 snapshot) — the material the EXEC-CD-28 forensics called unrecoverable",
+    "solSweeps": [
+      { "from": "HBBdhpbpFP3BwqcvrxJ44hAyKSid3D6AB4SFvtrN736s", "amount": "0.060522447 SOL", "txid": "2FrV7PsJyyCyGpm68W5V38BPA1LiD9BRPtq3A2HoKBpCNdLjeAu9utY4yv7btjc3F6eirfkDyj7azGqcbq6VXHhb" },
+      { "from": "9knfnFMLmhUNjKRDbR1BmVnVkq4BRczyYjJ7BqiZSgiL", "amount": "0.001080000 SOL", "txid": "5kPRCJUh8sfJDUAcvmNSYMc5e5ShD8joAtxWci1xymtf7Zu9CiBzjeUuwuTjxCaj2Wvty5tFAGopPnqKuYxKpceW" }
+    ],
+    "tronSweeps": [
+      { "from": "TYVwwuvdDmfy3shxT3cb3RKLrRCshaZxTy", "amount": "0.900002 TRX", "txid": "74e7072949cf0ec332f00edcb4821ad8c529ed98b3fac2d8eb193ddd60e22c45" },
+      { "from": "TN7eCah4oTmv47SV8KSimF7WCNPv1fJ9D2", "amount": "0.900000 TRX", "txid": "560b3427a0e6fe8dc09dfd91089bdf24d34bb84e1618f3c69cf4715de7de101a" }
+    ],
+    "realSwap": {
+      "route": "SOL → USDC (Jupiter v6, Solana mainnet)",
+      "fromVault": "hYWKEiQb5VV9HjQWiNMakJFZBm2UkuRZLrkDqrCLqDj",
+      "in": "0.055000000 SOL",
+      "out": "6.350293 USDC",
+      "txid": "VJud9e1rQFMniJRouhY7BdjksXWiRe2UwXxuFtvGQxKoMneHduEM41Tccu7cMuuZNxqmSN8GPw1VVeujyZCVvxF",
+      "slot": 454349964,
+      "units": 83555
+    },
+    "hiveAuthority": {
+      "status": "full-authority-verified (owner/active/posting/memo)",
+      "transfer": "0.030 HIVE headcorner→cashmachine — signed, node-verified, RC-mana gated (auto-retry scheduled ~2.4 days)"
+    },
+    "residues": [
+      { "addr": "TAzZZkrwBXk59iRya7esnKVJeV1xLtqkGr", "amount": "0.4 TRX", "why": "below network-measured transfer economics (~1.0 TRX fee path)" },
+      { "addr": "TG6SrsMJjRqnqAyYM8kGZu1rgkpsgizKEn", "amount": "0.192818 TRX", "why": "same" },
+      { "account": "headcorner/steem", "amount": "10.494 STEEM + 0.500 SBD", "why": "live active authority is a later rotation — recovered file holds the previous one" }
+    ]
+  }
+}

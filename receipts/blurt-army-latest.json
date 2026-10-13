@@ -1,0 +1,974 @@
+{
+ "schema": "saos.blurt-army/2",
+ "at": "2026-10-08T22:14:39.422Z",
+ "doctrine": "blurt = graphene fork of steem — same 2018 key material, verified against live chain authorities",
+ "node": "https://rpc.blurt.blog",
+ "chainPresent": {
+  "steem": 15,
+  "hive": 12,
+  "blurt": 12
+ },
+ "accounts": [
+  {
+   "username": "cashmachine",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT7Rp6auWyWPWRVaafT5CCtoUrHXnYQHesebPnskH3HwyAu8nh8N",
+    "active": "BLT8JV3DQLKRHYotkdAZmcJPrNSjNBDgwayMwWZcj84o2c2G5KhZ9",
+    "posting": "BLT6EML1FKrnTGHMkkudANMxvLejGfzi3qCkZZUrtfxggLafF6ZwW",
+    "memo": "BLT58G9GqCBUfeWrmzkPFSAbqCH23xAtKgNXhd2ECipxw7VSZxUxC"
+   }
+  },
+  {
+   "username": "haran",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT7LK2d2oHw1Bk63fqcpqgVyNUQxbnY3xuT7L554yVKCcY6mywxV",
+    "active": "BLT6nxdp2zQFjwGdHmdqV4PikxvWhoERYh2coRPg7TgHR9vKtN7Zi",
+    "posting": "BLT5ULLGRnaFPCAwrU7WH4PHamtNpjA76tc9mNRuao1QkuGESr24U",
+    "memo": "BLT7b51qcvqoaJwvWckZXDGwakca7eYJGeMNGhNrgWwTfqSRwAuGt"
+   }
+  },
+  {
+   "username": "israelnews",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT7t1VE72QDKW6e7xZDGxgBY6FCruVyA7rbhBmrN6ojK5Q6dwNqT",
+    "active": "BLT6smVd5vHp73Z5qDkiQFPzUBBBnjdxm85ReiJFJqDgifKRtq6aj",
+    "posting": "BLT5Y57MBMC1ViYZ48nTFsX5Ycwg33WWbisu4dVRkinnECrxzT8ok",
+    "memo": "BLT7qiznscicwUQk7gvzc6ddBAbvbHgx1HngN6CnSXfY1AehETRTC"
+   }
+  },
+  {
+   "username": "lsa",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT7M5QQmSXbEh3PxfTUnG9yUFTsnbGvtsMGoEkAwG77i1hychzQ9",
+    "active": "BLT5gbp3w8F1oDoWeZvtb1LkW1oXqyXMFhGSfYHHYGZYqMZ6spFV4",
+    "posting": "BLT5vLjvNjvMt7dRVDYY9Xuww887yvrS9Sy7osHpVXy3AKS2tCUCm",
+    "memo": "BLT5Ctguov5Q7KwVvSBc1Sc1wbA67ueYb4yAL7zkX4tVRXcAvTtbB"
+   }
+  },
+  {
+   "username": "macrame",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT6ebPT6RWvHXuzq56gw8SxRjEjVNe9JfBf6wPqfvJ6PvvRvxkmL",
+    "active": "BLT4yEe1tt7xTmzPjyM6Czvt7ULR2noXbvcLUANQ8zN5zjqm44et8",
+    "posting": "BLT58LJ5v7NgtRTFZ8LRtecL1P5UTh4BbSwaJeUy4eR8LsGiuy4yr",
+    "memo": "BLT599wdMN9mc8QdfMbe75VjmD2Ga5DRfGfLEQhNSVAjg3ApjMauw"
+   }
+  },
+  {
+   "username": "siq",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT69NZih1wNYpMRSfbg8mJgMG1xfoakyfaqRPvyfzbzEfsFJCdUT",
+    "active": "BLT5wBqKg31oj2FF4kp7cg2KXAedT3WdAVkXLLxzQ33RgpkwJdWh3",
+    "posting": "BLT6a6NgoWdJVdbMkdaD1QwQ8AsfcYjKdRWMm99BRR5b2M23ho2yL",
+    "memo": "BLT4xe3pLfnQ6SojubZNEAKXGARC7CUBFKs4ccXBq5tNTaj41HTsL"
+   }
+  },
+  {
+   "username": "tov",
+   "totalVerified": 5,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 0,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT8FFj1oU3dHHGvJiE5moGJJk7wtjDamrdVeNmYSZQyCP84rmaqd",
+    "active": "BLT6uZsi19EPhmcTCtrmbu7qqZPwoBQcdd1RBM5PbXAKbwnTb61x4",
+    "posting": "BLT6Dx3bEgwX6KpWgd7iXciNS8LivU4evRCqwkeJVcDoTEZxjAoxo",
+    "memo": "BLT5h8dDCoR5DYbXPsX7nPBT3XbApvE5bvqCD7kQeH2xCE4M66vRF"
+   }
+  },
+  {
+   "username": "wic",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT5XScMFug2xXfqTSSqjpdUjJFB7zpTXBKSHvDcCNefTr2ZNGF8t",
+    "active": "BLT5MgbfjdBEhRTREsChF8DaBU9Q2zvZZC1nMD2bdZGDJhYEJFp4F",
+    "posting": "BLT54F5sbwshggfPAeHURo9NuxPpoc4Ku6fiYNXJsK9fqJmGfKjtn",
+    "memo": "BLT55CjMnwksWT49tY8HFR97xtKiF5BoaaQS7fvcd3Sb4BWfycAUY"
+   }
+  },
+  {
+   "username": "wog",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT7RXg2o2PZk1tqospN11EHNaXVwq7nEPomtZNqkT9YK9c4pmTif",
+    "active": "BLT8mUCFqX9E27yWKwhNNENhYqYy6SAbyBVVzFyKruKgcG9iEwuq9",
+    "posting": "BLT8U3yKr9uBUPubhc5bVknfKjRWytoonHzcGtqrVbCEKdxvJ4m95",
+    "memo": "BLT6H6U3AywiZtRgrz3EvHcpDyQsWEnm8gogs87K15PyFgLS5HT97"
+   }
+  },
+  {
+   "username": "woq",
+   "totalVerified": 9,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "unified",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT6jcx7BrzawVR5E1AhmCBKBPDWTq3qDkBDsqY47VGAQxJEAXcyc",
+    "active": "BLT7XzPtWbsWLHMdQ4KCrywsCeeGXqmqGmGGFMwQcKUamAuDLYXa1",
+    "posting": "BLT6HEQvmHPnA43gcfRq5PwF8RsihBXXVdeWh2rBc8NiQ3aAgiy37",
+    "memo": "BLT5pXs2rBEjoGMALih6U7FFgm2i6899gRhCzVDS6KNiSjyPBWVaE"
+   }
+  },
+  {
+   "username": "ynet",
+   "totalVerified": 0,
+   "chains": {
+    "steem": "no-keys",
+    "hive": "no-keys",
+    "blurt": "no-keys"
+   },
+   "pubLabels": {}
+  },
+  {
+   "username": "headcorner",
+   "totalVerified": 4,
+   "chains": {
+    "steem": {
+     "sourceSet": "steem",
+     "verifiedCount": 0,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    },
+    "hive": {
+     "sourceSet": "hive",
+     "verifiedCount": 0,
+     "roles": {
+      "owner": {
+       "selfOk": false,
+       "onChain": false
+      },
+      "active": {
+       "selfOk": false,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": false,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": false,
+       "onChain": false
+      }
+     }
+    },
+    "blurt": {
+     "sourceSet": "steem",
+     "verifiedCount": 4,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": true
+      }
+     }
+    }
+   },
+   "pubLabels": {
+    "owner": "BLT5aUKyd9LzENnMti5tS478Zu1SLJW51VHyu2gvSNGKhwfyMFpvv",
+    "active": "BLT5HhJD5WUXu8vPhDmLaC2fTuuJYkwxF62Rt17HZ5G2PbnBvuHXF",
+    "posting": "BLT8m3rBLd8CA2KkY764fkFBnYGoCaK1ktDjn825HUbq25i52N9cw",
+    "memo": "BLT7mBK98NCE3HfMhqB9ADdxTutE1RSyGzpJQ6xiybr7gbmpQcXM9"
+   }
+  },
+  {
+   "username": "hcsoldier4",
+   "totalVerified": 1,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   },
+   "pubLabels": {}
+  },
+  {
+   "username": "hcsoldier5",
+   "totalVerified": 1,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   },
+   "pubLabels": {}
+  },
+  {
+   "username": "hcsoldier6",
+   "totalVerified": 1,
+   "chains": {
+    "steem": {
+     "sourceSet": "unified",
+     "verifiedCount": 1,
+     "roles": {
+      "owner": {
+       "selfOk": true,
+       "onChain": true
+      },
+      "active": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "posting": {
+       "selfOk": true,
+       "onChain": false
+      },
+      "memo": {
+       "selfOk": true,
+       "onChain": false
+      }
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   },
+   "pubLabels": {}
+  }
+ ]
+}

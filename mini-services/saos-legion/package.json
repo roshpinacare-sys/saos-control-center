@@ -1,0 +1,10 @@
+{
+  "name": "saos-legion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAEC — Sovereign Autonomous Execution Center (:3012). הלגיון: 11 סוכנים ריבוניים הקרויים על-שם חיילי-ה-ROT1 — כל חייל שאבדו-מפתחותיו זוכה לחיים-שניים כמפעיל-כלכלה-אוטונומי על רשת-ה-DEX. כל פעולה = פקודה/סוואג' אמת על המנוע (:3010) — עמלים אמת → סולם-העתודה → רלוונטיות-המטבע. מצבת-אמת: רישום-מלא ב-chain journal (soldier field) + state-push ל-git.",
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
+  }
+}

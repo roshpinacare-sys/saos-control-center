@@ -1,0 +1,102 @@
+// ═══ הסכם-מפתח-האב (Master Key Agreement · Task 69) ═══════════════════════════
+// הסכם-המפעיל: מפתח אחד פותח את כל האפליקציות בריפו — בלי תלות בשרשרות-חוץ,
+// בסמכויות-רוטציה או בזמינות-RPC. מקור-האמת = הקובץ שהמפעיל הצהיר עליו
+// (headcorner.txt): שורה-1 = תווית-החשבון, שורה-2 = המפתח.
+//
+// חוזה-בטיחות:
+// · המפתח לעולם לא נכתב ללוג, ל-DB, לתשובת-API או לגיט (הקבצים gitignored).
+// · בזיכרון נשמר רק דיגסט SHA-256 — השוואה timing-safe על דיגסטים באורך-קבוע.
+// · אם אף קובץ-הסכם לא נמצא → הסכם לא פעיל (isMasterKey תמיד false — fail-closed,
+//   מסלול-ההתחברות הרגיל דרך אימות-השרשרת נשאר השוער היחיד).
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import { SECURE_MATERIAL_DIR } from './secure-material'; // FIX(3-b · F2): secure-first
+
+// FIX(3-b · F2): סדר-קדימויות secure-first — העתק-ההסכם בבית-הסודות המוגן (0600)
+// קודם, העותק-הייעודי .secrets אחריו, ורק-אז נתיבי-הלגאסי upload/ (tmpfs שכופה 777 —
+// כל-שימוש-בהם מזעיק-קולנית, בלי-לרשום-תוכן). הנתיב האחרון מכסה ריצה מ-cwd של
+// תת-פרויקט (saos-dex/) אל הריפו-האם.
+const CANDIDATES: Array<{ p: string; legacy: boolean }> = [
+  { p: path.join(SECURE_MATERIAL_DIR, 'headcorner.txt'), legacy: false },
+  { p: path.resolve(process.cwd(), '.secrets/master-key.txt'), legacy: false },
+  { p: path.resolve(process.cwd(), 'upload/headcorner.txt'), legacy: true },
+  { p: path.resolve(process.cwd(), '../.secrets/master-key.txt'), legacy: false },
+  { p: path.resolve(process.cwd(), '../upload/headcorner.txt'), legacy: true },
+];
+
+interface MasterInfo {
+  label: string;
+  digest: string; // sha256(key) — hex, הערך-היחיד שנשאר בזיכרון
+  source: string; // שם-הקובץ שממנו נטען (לא הנתיב המלא — היגיינת-לוגים)
+}
+
+let cached: MasterInfo | null | undefined;
+
+function sha256Hex(s: string): string {
+  return crypto.createHash('sha256').update(s, 'utf8').digest('hex');
+}
+
+function parse(content: string): { label: string; key: string } | null {
+  const lines = content.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+  if (lines.length === 0) return null;
+  if (lines.length === 1) return { label: 'headcorner', key: lines[0] }; // מפתח-בלבד
+  return { label: lines[0].toLowerCase(), key: lines[1] };
+}
+
+// FIX(Task-69b · מעידה-אמתית של המפעיל): אותו מפתח-פרטי נעטף במעטפות שונות —
+// צורת-הצגה של Blurt (P5KQ… ≡ 5KQ… — אותו מפתח, קידומת-תצוגה בלבד) ורווחים
+// שנדבקים בהעתקה. ההסכם = המפתח-הפרטי, לא המעטפת: כל צורת-הדבקה חוקית נכנסת.
+export function normalizeKeyForm(s: string): string {
+  let k = s.replace(/\s+/g, '');
+  if (k.length >= 2 && k[0] === 'P' && /^[5KL]/.test(k[1])) k = k.slice(1);
+  return k;
+}
+
+/** מידע-ההסכם (דיגסט בלבד!) או null אם אין הסכם. נטען-פעם-אחת ונשמר בזיכרון. */
+export function masterInfo(): MasterInfo | null {
+  if (cached !== undefined) return cached;
+  cached = null;
+  for (const { p, legacy } of CANDIDATES) {
+    try {
+      if (!fs.existsSync(p)) continue;
+      const st = fs.statSync(p);
+      if (!st.isFile() || st.size === 0 || st.size > 4096) continue;
+      // FIX(3-b · F2c): אזהרה-קולנית על-לגאסי + בדיקת-הרשאות — אפס-תוכן-קובץ-בלוג
+      if (legacy || (st.mode & 0o077) !== 0) {
+        console.warn(`[master-key] ⚠ LEGACY/loose material path in use: ${path.basename(path.dirname(p))}/${path.basename(p)} (mode=${(st.mode & 0o777).toString(8)}) — ההעתק-המוגן צריך להיות ב-${SECURE_MATERIAL_DIR}/headcorner.txt (תוכן-הקובץ לעולם לא נרשם)`);
+      }
+      const parsed = parse(fs.readFileSync(p, 'utf8'));
+      if (!parsed || parsed.key.length < 8) continue;
+      // FIX(3-b · F9): אזהרת-צימוד-תווית↔env — requireOwner מכיר-רק label מסוים;
+      // הסכם שתוויותו שונה מ-SAOS_OPERATOR_ACCOUNT ייצור-סשן-מאסטר-לא-מוכר.
+      const envOp = (process.env.SAOS_OPERATOR_ACCOUNT || 'headcorner').toLowerCase();
+      if (parsed.label.toLowerCase() !== envOp) {
+        console.warn(`[master-key] ⚠ label/env mismatch: agreement label='${parsed.label}' vs SAOS_OPERATOR_ACCOUNT='${envOp}' — סשן-מאסטר עשוי שלא להיחשב owner`);
+      }
+      cached = { label: parsed.label, digest: sha256Hex(normalizeKeyForm(parsed.key)), source: path.basename(p) };
+      break;
+    } catch { /* מועמד הבא */ }
+  }
+  return cached;
+}
+
+/** התווית-הקנונית של מפעיל-ההסכם (headcorner) או null. */
+export function masterLabel(): string | null {
+  return masterInfo()?.label ?? null;
+}
+
+/** טביעת-אצבע לתצוגה/ביקורת — 16 תווים ראשונים של הדיגסט. לעולם לא המפתח. */
+export function masterFingerprint(): string | null {
+  return masterInfo()?.digest.slice(0, 16) ?? null;
+}
+
+/** האם `candidate` הוא מפתח-האב? השוואת דיגסטים timing-safe — אין דליפת-תוכן/אורך.
+ * מקבל כל צורת-מעטפת: עם/בלי קידומת-P, עם/בלי רווחים (ראה normalizeKeyForm). */
+export function isMasterKey(candidate: string): boolean {
+  const m = masterInfo();
+  if (!m || !candidate) return false;
+  const a = Buffer.from(sha256Hex(normalizeKeyForm(candidate)), 'utf8');
+  const b = Buffer.from(m.digest, 'utf8');
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}

@@ -1,0 +1,10 @@
+{
+  "name": "dex-daemon",
+  "version": "1.16.0",
+  "private": true,
+  "description": "SAOS-DEX sovereign daemon (port 3010, standalone prod since T-56)",
+  "scripts": {
+    "dev": "bash /home/z/my-project/mini-services/dex-daemon/launch-prod.sh",
+    "start": "bash /home/z/my-project/mini-services/dex-daemon/launch-prod.sh"
+  }
+}

@@ -1,0 +1,99 @@
+{
+ "schema": "saos.bandwidth-degradation/1",
+ "at": "2026-10-10T15:13:13.488Z",
+ "source": "receipts/witness-latency-history.jsonl (tail 512 · fed 2h by witness-tracker)",
+ "method": "per-(chain,node) least-squares ms/hour · relSlope=share-of-median-per-hour · variance-expansion half2/half1 · ETA to 9s timeout ceiling",
+ "thresholds": {
+  "degrading": "relSlope>2%/h (window>=30min)",
+  "critical": "relSlope>10%/h",
+  "systemicRisk": ">=2 networks degraded simultaneously"
+ },
+ "nodes": [
+  {
+   "chain": "blurt",
+   "node": "rpc.blurt.blog",
+   "samples": 215,
+   "spanHours": 18.1276,
+   "medianMs": 295,
+   "slopeMsPerHour": 1.7259,
+   "relSlopePerHour": 0.0059,
+   "varianceExpansion": 2.2503,
+   "etaToCeilingHours": 5043.6033,
+   "successRate": null,
+   "verdict": "stable"
+  },
+  {
+   "chain": "hive",
+   "node": "api.deathwing.me",
+   "samples": 81,
+   "spanHours": 16.1133,
+   "medianMs": 228,
+   "slopeMsPerHour": 0.2631,
+   "relSlopePerHour": 0.0012,
+   "varianceExpansion": 0.6698,
+   "etaToCeilingHours": 33337.2337,
+   "successRate": null,
+   "verdict": "stable"
+  },
+  {
+   "chain": "steem",
+   "node": "api.justyy.com",
+   "samples": 120,
+   "spanHours": 16.1147,
+   "medianMs": 317,
+   "slopeMsPerHour": 1.3456,
+   "relSlopePerHour": 0.0043,
+   "varianceExpansion": 1.1257,
+   "etaToCeilingHours": 6453.2764,
+   "successRate": null,
+   "verdict": "stable"
+  },
+  {
+   "chain": "steem",
+   "node": "api.steemit.com",
+   "samples": 36,
+   "spanHours": 2.022,
+   "medianMs": 218,
+   "slopeMsPerHour": -6.8155,
+   "relSlopePerHour": -0.0313,
+   "varianceExpansion": 0.037,
+   "etaToCeilingHours": null,
+   "successRate": null,
+   "verdict": "improving"
+  },
+  {
+   "chain": "steem",
+   "node": "steemapi.boylikegirl.club",
+   "samples": 60,
+   "spanHours": 10.0883,
+   "medianMs": 720,
+   "slopeMsPerHour": 13.2411,
+   "relSlopePerHour": 0.0184,
+   "varianceExpansion": 1.3416,
+   "etaToCeilingHours": 625.3648,
+   "successRate": null,
+   "verdict": "stable"
+  }
+ ],
+ "chains": {
+  "steem": {
+   "degraded": false,
+   "worst": null
+  },
+  "hive": {
+   "degraded": false,
+   "worst": null
+  },
+  "blurt": {
+   "degraded": false,
+   "worst": null
+  }
+ },
+ "systemicRisk": {
+  "flagged": false,
+  "degradedChains": []
+ },
+ "broadcastSuccessEnriched": false,
+ "doctrine": "read-only prediction · zero broadcast · zero secrets · prediction is an operator signal, never an auto-action",
+ "keysLeaked": false
+}

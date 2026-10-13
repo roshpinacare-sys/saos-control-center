@@ -1,0 +1,17 @@
+{
+ "schema": "saos.mem-sentinel/1",
+ "at": "2026-10-10T16:53:32.814Z",
+ "level": "critical",
+ "usedBytes": 3699970048,
+ "usedGiB": 3.446,
+ "totalGiB": 3.947,
+ "ceilingGiB": 2.5,
+ "warnGiB": 2,
+ "criticalGiB": 2.3,
+ "headroomGiB": 0,
+ "compaction": {
+  "logs": [],
+  "historyPruned": false
+ },
+ "keysLeaked": false
+}

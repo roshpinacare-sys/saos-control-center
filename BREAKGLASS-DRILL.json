@@ -1,0 +1,80 @@
+{
+  "instrument": "breakglass-drill.ts",
+  "ts": "2026-10-08T06:51:21.216Z",
+  "verdict": "PASS",
+  "rtoMs": 1879,
+  "simulation": "saos-dex/.env presumed destroyed — recovery path = encrypted repo-vault ONLY (dry-run: zero writes, .env never read)",
+  "vault": {
+    "open": true,
+    "blobs": 43
+  },
+  "authorityMatrix": [
+    {
+      "chain": "steem",
+      "role": "posting",
+      "wifShape": true,
+      "derivedPub": "STM6UBp98q…",
+      "liveAuthority": false,
+      "armable": false,
+      "note": "מחוץ-לסמכות (רוטציה-מתועדת EXEC-CD-35)"
+    },
+    {
+      "chain": "steem",
+      "role": "active",
+      "wifShape": true,
+      "derivedPub": "STM5beptA4…",
+      "liveAuthority": false,
+      "armable": false,
+      "note": "מחוץ-לסמכות (רוטציה-מתועדת EXEC-CD-35)"
+    },
+    {
+      "chain": "steem",
+      "role": "owner",
+      "wifShape": true,
+      "derivedPub": "STM6p6ZNW7…",
+      "liveAuthority": false,
+      "armable": false,
+      "note": "מחוץ-לסמכות (רוטציה-מתועדת EXEC-CD-35)"
+    },
+    {
+      "chain": "hive",
+      "role": "posting",
+      "wifShape": true,
+      "derivedPub": "STM6u99ogJ…",
+      "liveAuthority": true,
+      "armable": true,
+      "note": "בסמכות-חיה — ניתן-לחמש"
+    },
+    {
+      "chain": "hive",
+      "role": "active",
+      "wifShape": true,
+      "derivedPub": "STM8c9vp3h…",
+      "liveAuthority": true,
+      "armable": true,
+      "note": "בסמכות-חיה — ניתן-לחמש"
+    },
+    {
+      "chain": "hive",
+      "role": "owner",
+      "wifShape": true,
+      "derivedPub": "STM8mSbBz8…",
+      "liveAuthority": true,
+      "armable": true,
+      "note": "בסמכות-חיה — ניתן-לחמש"
+    }
+  ],
+  "tron": {
+    "scalarsFound": 99,
+    "recoveredAddress": "TPFmkf…4zjH",
+    "matchedManifest": true,
+    "manifestTronCount": 1
+  },
+  "armableNow": [
+    "hive:posting",
+    "hive:active",
+    "hive:owner"
+  ],
+  "anchorRailArmable": true,
+  "timeToRecoverKeysMs": 1879
+}

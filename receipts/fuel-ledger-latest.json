@@ -1,0 +1,21 @@
+{
+  "schema": "saos.fuel-ledger/1",
+  "at": "2026-10-08T22:52:14.504Z",
+  "account": "headcorner",
+  "doctrine": "steem-yield → sovereign treasury: claim (live, zero-cost) → conversion-venue pending owner decision (honest queue)",
+  "rewards": {
+    "steem": 0,
+    "sbd": 0,
+    "vesting": 37.103061
+  },
+  "liquid": {
+    "steem": 2.266,
+    "sbd": 0.724
+  },
+  "claimed": null,
+  "venue": {
+    "status": "nothing-to-convert",
+    "note": "no unauthorized endpoints (charter); internal DEX rails routed when counterparties exist"
+  },
+  "error": "transaction.operations = claim_reward_balance,[object Object]\t cause: claim_reward_balance.reward_vests = undefined\t cause: undefined is not an object (evaluati"
+}

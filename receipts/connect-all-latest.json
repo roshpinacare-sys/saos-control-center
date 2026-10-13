@@ -1,0 +1,447 @@
+{
+ "schema": "saos.connect-all/1",
+ "at": "2026-10-10T15:12:53.012Z",
+ "verdict": "PASS",
+ "checks": [
+  {
+   "name": "repo-vault",
+   "ok": true,
+   "detail": "opens with 2-of-2 shards · absorbed members=45"
+  },
+  {
+   "name": "fleet-vault",
+   "ok": true,
+   "detail": "opens · files=14 · sealed-blurt-accounts=11"
+  },
+  {
+   "name": "chain-matrix",
+   "ok": true,
+   "detail": "steem-full4=10 · hive-full4=9 · blurt-owner+ =11 · blurt-full4=1 · on-chain: steem=15 hive=12 blurt=12 (of 15)"
+  },
+  {
+   "name": "rails-keys",
+   "ok": true,
+   "detail": "3/6 canonical rail keys present in saos-dex/.env (names-only)"
+  },
+  {
+   "name": "receipts",
+   "ok": true,
+   "detail": "fuel-state-fresh=true · broadcast-pending-fresh=true"
+  }
+ ],
+ "blurtArmy": {
+  "sealedAccounts": 11,
+  "chainVerifiedOwnerPlus": 11,
+  "full4": 1
+ },
+ "matrix": [
+  {
+   "username": "cashmachine",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "haran",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "israelnews",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "lsa",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "macrame",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "siq",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "tov",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 0,
+     "roles": {
+      "owner": false,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "wic",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "wog",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "woq",
+   "chains": {
+    "steem": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "hive": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    },
+    "blurt": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    }
+   }
+  },
+  {
+   "username": "ynet",
+   "chains": {
+    "steem": "no-keys",
+    "hive": "no-keys",
+    "blurt": "no-keys"
+   }
+  },
+  {
+   "username": "headcorner",
+   "chains": {
+    "steem": {
+     "verified": 0,
+     "roles": {
+      "owner": false,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "hive": {
+     "verified": 0,
+     "roles": {
+      "owner": false,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "blurt": {
+     "verified": 4,
+     "roles": {
+      "owner": true,
+      "active": true,
+      "posting": true,
+      "memo": true
+     }
+    }
+   }
+  },
+  {
+   "username": "hcsoldier4",
+   "chains": {
+    "steem": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   }
+  },
+  {
+   "username": "hcsoldier5",
+   "chains": {
+    "steem": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   }
+  },
+  {
+   "username": "hcsoldier6",
+   "chains": {
+    "steem": {
+     "verified": 1,
+     "roles": {
+      "owner": true,
+      "active": false,
+      "posting": false,
+      "memo": false
+     }
+    },
+    "hive": "not-on-chain",
+    "blurt": "not-on-chain"
+   }
+  }
+ ]
+}

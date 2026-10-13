@@ -1,0 +1,32 @@
+{
+ "schema": "saos.rail-compile/1",
+ "at": "2026-10-10T10:11:30.195Z",
+ "booksRoot": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+ "items": [
+  {
+   "rail": "technical",
+   "file": "content/rails/technical/items/2026-10-10-digest.md",
+   "bytes": 870,
+   "booksRoot": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+   "leakScan": "clean"
+  },
+  {
+   "rail": "financial",
+   "file": "content/rails/financial/items/2026-10-10-digest.md",
+   "bytes": 668,
+   "booksRoot": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+   "leakScan": "clean"
+  },
+  {
+   "rail": "architectural",
+   "file": "content/rails/architectural/items/2026-10-10-digest.md",
+   "bytes": 688,
+   "booksRoot": "4f4b74e1a1d851a0b34fea2b8b48bfb33f559d5673b0914f76cc77911c3a57e8",
+   "leakScan": "clean"
+  }
+ ],
+ "skipped": [],
+ "status": "STAGED-OWNER-GATED (zero publish · zero broadcast)",
+ "doctrine": "measured-metrics-only · leak-scan fail-closed · deterministic same-day overwrite",
+ "keysLeaked": false
+}

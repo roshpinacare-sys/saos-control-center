@@ -1,0 +1,19 @@
+{
+  "schema": "saos.broadcast-pending/1",
+  "at": "2026-10-11T11:02:27.341Z",
+  "mode": "dry-run (zero broadcast — signing + local verification + fundability only)",
+  "keysLeaked": false,
+  "keyMaterialLogged": false,
+  "eth": {
+    "chain": "eth",
+    "status": "no-key (honest — not armed)",
+    "skipped": true,
+    "bufferFile": null
+  },
+  "sol": {
+    "chain": "sol",
+    "status": "no-key (honest — not armed)",
+    "skipped": true
+  },
+  "doctrine": "Broadcast-Pending buffer: signed packages ready for any public RPC the moment unfunded-policy gates receive funding — fuel-only blockers, custody intact (rails.env.enc v2 · c5b4758)"
+}

@@ -1,0 +1,36 @@
+{
+ "schema": "saos.recovery-shard-selftest/1",
+ "at": "2026-10-09T00:00:58.770Z",
+ "verdict": "PASS",
+ "cases": [
+  {
+   "bytes": 16,
+   "pairs": [
+    true,
+    true,
+    true
+   ],
+   "singleShardLeaksNothing": true
+  },
+  {
+   "bytes": 1,
+   "pairs": [
+    true,
+    true,
+    true
+   ],
+   "singleShardLeaksNothing": true
+  },
+  {
+   "bytes": 4096,
+   "pairs": [
+    true,
+    true,
+    true
+   ],
+   "singleShardLeaksNothing": true
+  }
+ ],
+ "scheme": "shamir-2of3-gf256-0x11b · zero-dependency",
+ "keysLeaked": false
+}
