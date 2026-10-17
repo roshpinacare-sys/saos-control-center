@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
       if (match) {
         fallback = true;
         result.ok = true;
-        result.roles = [match.role as typeof result.roles[number]];
+        result.roles = [match.role as typeof result.roles[number];
         result.error = undefined;
       }
     } catch { /* db issue — stay fail-closed */ }
