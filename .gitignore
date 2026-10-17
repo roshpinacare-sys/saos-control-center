@@ -91,3 +91,6 @@ db/seal-shards/
 # SANBOX — שרת-ה-HQ של-המפעיל (repo-גיט-עצמאי; T-46 · אסור-לקנן-בגיט-האם)
 /sanbox/
 dev.log.tail
+
+# audit wave-0 (ops-control): live-state files must never be tracked
+repo-vault/
