@@ -1,0 +1,6 @@
+{
+  "system_type": "deterministic_simulation",
+  "last_updated": "2026-09-11",
+  "status": "static",
+  "note": "המערכת היא סימולציה דטרמיניסטית ואינה מבצעת ריצות דינמיות. שדות כמו runs, in_progress, pending, failure, success הוסרו מכיוון שלא משקפים פעילות אמיתית."
+}
