@@ -46,6 +46,7 @@
     "upload",
     "download",
     "saos-dex",
-    "mini-services"
+    "mini-services",
+    "fabric"
   ]
 }

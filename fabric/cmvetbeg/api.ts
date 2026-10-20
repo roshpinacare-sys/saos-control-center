@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from '@/components/sv/shared';
-import { prisma } from '@/lib/db';
+import { db as prisma } from '@/lib/db';
 
 // Middleware function to authenticate and authorize requests to /api/v1/users
 async function authMiddleware(request: NextRequest) {

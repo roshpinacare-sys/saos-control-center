@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { prisma } from '@/lib/db';
+import { db as prisma } from '@/lib/db';
 import { Logger } from '@/lib/utils';
 
 // טיפוסים למערכת הרשאות

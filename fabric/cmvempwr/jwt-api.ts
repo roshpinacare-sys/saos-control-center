@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { prisma } from '@/lib/db';
+import { db as prisma } from '@/lib/db';
 
 // טיפול בבקשות GET לרשימת משתמשים
 export async function GET(request: NextRequest) {

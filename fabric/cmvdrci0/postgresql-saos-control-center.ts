@@ -13,7 +13,7 @@ export class PgMultiTierQuery {
     try {
       return await this.db.any(query, values);
     } catch (error) {
-      console.error('TierOne query failed:', error.message);
+      console.error('TierOne query failed:', error instanceof Error ? error.message : error);
       throw new Error('Failed to execute tier-one query');
     }
   }
@@ -27,7 +27,7 @@ export class PgMultiTierQuery {
       });
       return await Promise.all(promises);
     } catch (error) {
-      console.error('TierTwo query failed:', error.message);
+      console.error('TierTwo query failed:', error instanceof Error ? error.message : error);
       throw new Error('Failed to execute tier-two queries');
     }
   }
@@ -42,7 +42,7 @@ export class PgMultiTierQuery {
       const tierTwoResults = await this.tierTwo(baseQuery, paramExtractor, secondaryQuery);
       return await aggregator(tierTwoResults);
     } catch (error) {
-      console.error('TierThree query failed:', error.message);
+      console.error('TierThree query failed:', error instanceof Error ? error.message : error);
       throw new Error('Failed to execute tier-three aggregation');
     }
   }
