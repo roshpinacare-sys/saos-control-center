@@ -1,6 +1,6 @@
 {
  "agent": "control-center-build",
- "generatedAt": "2026-10-20T07:43:23Z",
+ "generatedAt": "2026-10-20T08:44:36Z",
  "verdict": "FAIL",
  "checks": {
   "install": "pass",
