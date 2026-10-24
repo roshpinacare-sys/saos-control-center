@@ -1,0 +1,13 @@
+{
+  "name": "@saos/sovereign-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sovereign local WebSocket RPC gateway — swarm agents ↔ fleet-economy ledger, 100% in-house, zero external bottlenecks (directive §4).",
+  "scripts": {
+    "start": "bun index.ts",
+    "once": "bun index.ts --once",
+    "test": "bun test .",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}

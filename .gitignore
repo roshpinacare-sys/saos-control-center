@@ -81,6 +81,10 @@ mini-services/saos-legion/state/*
 !mini-services/saos-legion/state/.gitkeep
 mini-services/saos-legion/legion-dev.log
 mini-services/saos-legion/legion-spawn.log
+
+# SOVEREIGN-GATEWAY runtime heartbeat — live state never in git (write only its .gitkeep)
+mini-services/sovereign-gateway/state/*
+!mini-services/sovereign-gateway/state/.gitkeep
 .autonomy-genesis-done
 
 # T-34 sealed local state — recovery staging map + shards NEVER in git (capture-resistance)
