@@ -85,11 +85,28 @@ export function openFleetFiles(): FleetFiles {
   const meta = JSON.parse(fs.readFileSync(path.join(FLEET_DIR, "fleet_keys.meta.json"), "utf8")) as { pass?: string };
   if (!raw.startsWith(MAGIC)) throw new Error("fleet vault: unknown seal format");
   const payload = Buffer.from(raw.slice(MAGIC.length).replace(/\s+/g, ""), "hex");
-  if (!meta.pass) throw new Error("fleet vault: meta pass missing (fail-closed)");
-  const key = crypto.scryptSync(meta.pass, payload.subarray(0, 16), 32);
-  const d = crypto.createDecipheriv("aes-256-gcm", key, payload.subarray(16, 28));
-  d.setAuthTag(payload.subarray(28, 44));
-  const plain = Buffer.concat([d.update(payload.subarray(44)), d.final()]).toString("utf8");
+  // FIX(fleet-open-dual-pass): scripts/restore-fleet-vault.ts פותח את אותו-מאגר
+  // בשתי-דרכים (legacy meta.pass · derived sha256("saos-fleet-vault-v2:"+DEX_OPERATOR_TOKEN))
+  // אך הקורא-הראשי-הזה ידע רק-את-הראשונה — מטא-שנשמר-בלי pass (דרך-derived בלבד) היה
+  // נזרק "meta pass missing (fail-closed)" למרות-שהחומר-פתיח, וכל-צרכני-הכספת
+  // (blurt-army/connect-all/authority-guard) היו קורסים על-אותו-קובץ שהמשחזר דווקא
+  // פתח. עתה: בדיוק-שתי-הדרכים של-המשחזר, באותו-סדר (legacy קודם), fail-closed
+  // כששתיהן-נכשלות. אפס-חומר-סוד בפלט/בשגיאה.
+  const tryPass = (pass: string): string | null => {
+    try {
+      const key = crypto.scryptSync(pass, payload.subarray(0, 16), 32);
+      const d = crypto.createDecipheriv("aes-256-gcm", key, payload.subarray(16, 28));
+      d.setAuthTag(payload.subarray(28, 44));
+      return Buffer.concat([d.update(payload.subarray(44)), d.final()]).toString("utf8");
+    } catch { return null; }
+  };
+  let plain: string | null = null;
+  if (meta.pass) plain = tryPass(meta.pass);
+  if (plain === null) {
+    const base = process.env.DEX_OPERATOR_TOKEN ?? "";
+    if (base) plain = tryPass(crypto.createHash("sha256").update(`saos-fleet-vault-v2:${base}`).digest("hex"));
+  }
+  if (plain === null) throw new Error("fleet vault: decrypt failed (legacy meta.pass + derived DEX_OPERATOR_TOKEN both rejected) — fail-closed");
   const bundle = JSON.parse(plain) as { sealedAt?: string; files: Record<string, string> };
   return { files: bundle.files, sealedAt: bundle.sealedAt ?? "" };
 }

@@ -137,6 +137,7 @@ const st = {
   agents: new Map<string, AgentState>(),
   ledger: [] as LedgerEntry[],
   bootstrapped: false, bootstrapLog: [] as string[],
+  bootstrapFailures: 0, // FIX(legion-bootstrap-retry): נמדד-פר-ריצה — 0 = הזריעה מלאה
   ticks: 0,
 };
 
@@ -195,10 +196,11 @@ function midFor(state: any, base: string, quote: string): number | null {
   return typeof p.mid === "number" ? p.mid : poolMid(p, base, quote);
 }
 
-// ── בוטסטראפ: זריעה חד-פעמית מהאוצר לארנקי-הסוכנים ─────────────────────────
+// ── בוטסטראפ: זריעה מהאוצר לארנקי-הסוכנים (חוזר-עד-הצלחה — ראה FIX בסוף-הפונקציה) ──
 async function bootstrap() {
   const state = await engineState(true);
   const have = new Set((state.wallets ?? []).map((w: any) => w.name));
+  st.bootstrapFailures = 0; // מדידה-טרייה-פר-ריצה
   for (const d of FLEET) {
     const wallet = d.name;
     if (!d.seed && !d.fuel) continue;
@@ -215,10 +217,19 @@ async function bootstrap() {
       else { led("system", "fuel", `${wallet} ${d.fuel} credits`); await new Promise(r2 => setTimeout(r2, 350)); }
     }
     if (okAll) st.bootstrapLog.push(`${wallet}: זריעה מלאה`);
+    else st.bootstrapFailures++;
   }
-  st.bootstrapped = true;
-  try { require("fs").writeFileSync(`${import.meta.dir}/state/bootstrapped.json`, JSON.stringify({ at: Date.now(), h: lastHeight })); } catch {}
-  log(`bootstrap done: ${st.bootstrapLog.length} רשומות`);
+  // FIX(legion-bootstrap-retry): הדגל נכון-רק-כשכל-הזריעות/דלקים עברו. היה:
+  // st.bootstrapped=true מותנה-בשום-דבר — ריצה-אחת שבה-כל-הזריעות נדחו (טוקן-מפעיל
+  // חסר → 503 fail-closed, או מנוע-מושבת/מהיר-מהרגע) הייתה סוגרת את הבוטסטראפ
+  // לנצח: 11-סוכנים בלי ארנקים על המנוע → כל-פקודה נדחית (unknown-wallet /
+  // insufficient) והרשת-הרב-חיילית מתכווצת לאפס-סוחרים בשקט. עתה: כישלון-אמת
+  // משאיר bootstrapped=false ומחזור-הניסיון-החוזר (ראה עלייה) ינסה שוב —
+  // live-wins נשמר (ארנקים-קיימים לא נוגעים), אפס-הצפה: ניסיון-חוזר-יחיד בתור.
+  st.bootstrapped = st.bootstrapFailures === 0;
+  if (st.bootstrapLog.length > 600) st.bootstrapLog.splice(0, st.bootstrapLog.length - 600); // ריצות-חוזרות לא יגדלו ללא-חופה
+  try { require("fs").writeFileSync(`${import.meta.dir}/state/bootstrapped.json`, JSON.stringify({ at: Date.now(), h: lastHeight, complete: st.bootstrapped, failures: st.bootstrapFailures })); } catch {}
+  log(`bootstrap done: ${st.bootstrapLog.length} רשומות · complete=${st.bootstrapped} · failures=${st.bootstrapFailures}`);
 }
 
 // ── אימות-פקודה-בטוחה ───────────────────────────────────────────────────────
@@ -544,5 +555,18 @@ void (async () => {
     try { await engineState(true); break; } catch { await new Promise(r => setTimeout(r, 3000)); }
   }
   try { await bootstrap(); } catch (e) { log(`bootstrap-נכשל: ${e instanceof Error ? e.message : e}`); }
+  // FIX(legion-bootstrap-retry): מחזור-ניסיון-חוזר עד-זריעה-מלאה. קצב-מוגבר-סביבה
+  // (LEGION_BOOTSTRAP_RETRY_MS, ברירת-מחדל 5 דק') — לא-סערה: ניסיון-יחיד, live-wins,
+  // והריצה-עצמה מדלגת על מה שכבר-קיים. כיבוי: LEGION_BOOTSTRAP_RETRY_MS=off.
+  const RETRY_MS = process.env.LEGION_BOOTSTRAP_RETRY_MS === "off"
+    ? 0
+    : Math.max(30_000, Number(process.env.LEGION_BOOTSTRAP_RETRY_MS ?? 300_000));
+  if (RETRY_MS > 0) {
+    setInterval(() => {
+      if (st.bootstrapped || st.kill) return;
+      void bootstrap().catch((e: unknown) => log(`bootstrap-retry-נכשל (ינסה שוב): ${e instanceof Error ? e.message : e}`));
+    }, RETRY_MS).unref?.();
+    log(`bootstrap-retry armed — כל ${Math.round(RETRY_MS / 1000)}ש' עד-זריעה-מלאה`);
+  }
   void mainLoop();
 })();
