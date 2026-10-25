@@ -122,8 +122,13 @@ function isRoleSet(v: unknown): v is Record<string, RoleKey> {
 
 /**
  * החותמות-המועמדות לשרשרת נתונה — מנרמל שתי-צורות-כספת:
- *  · צורה-ישירה (14 חשבונות): keys={posting:{wif,pub},active:…,owner:…,memo:…} → סט-אחד-מאוחד
- *  · צורה-קינונה (headcorner): keys={steem:{owner:…},hive:{owner:…}} → סט-לשרשרת
+ *  · צורה-ישירה: keys={posting:{wif,pub},active:…,owner:…,memo:…} → סט-אחד-מאוחד
+ *  · צורה-קינונה: keys={steem:{owner:…},hive:{owner:…}} → סט-לשרשרת
+ *
+ * חוק-הפורמט (§3, directive 1a173c6ac120ccb1): הבחירה-נקבעת-על-ידי-צורת-הכספת,
+ * לא-על-ידי-שם-החשבון. הצורה-הקינונה נבדקת לכל-חשבון שמחזיק אותה (במקור: ענף
+ * username==="headcorner" בלבד — הצטמקות-מטריצה-מדודה). כל-המועמדים עוברים
+ * אימות-חי-מול-רשויות-השרשרת — הרישום-קובע, fail-closed בלי-התאמה.
  */
 export function candidateSets(acc: FleetAccount, chain: GrapheneChain): Array<[string, Record<string, RoleKey>]> {
   const keys = acc.keys ?? {};
@@ -135,12 +140,12 @@ export function candidateSets(acc: FleetAccount, chain: GrapheneChain): Array<[s
   }
   const out: Array<[string, Record<string, RoleKey>]> = [];
   if (named[chain]) out.push([chain, named[chain]]);
-  if (acc.username === "headcorner") {
-    // headcorner מחזיק סטים-נפרדים לשרשראות — ל-BLURT בודקים שניהם (הרישום-קובע)
-    for (const [k, v] of Object.entries(named)) if (k !== chain && (k === "steem" || k === "hive")) out.push([k, v]);
-  } else if (Object.keys(direct).length > 0) {
-    out.push(["unified", direct]);
+  // סטים-קינונים-לשרשראות-אחרות = מועמדים-חלופיים (אותו-עקומה; האימות-החי מכריע) —
+  // לכל-חשבון-שמחזיק-צורה-זו, לא-רק-headcorner.
+  for (const [k, v] of Object.entries(named)) {
+    if (k !== chain && (k === "steem" || k === "hive" || k === "blurt")) out.push([k, v]);
   }
+  if (Object.keys(direct).length > 0) out.push(["unified", direct]);
   return out;
 }
 
