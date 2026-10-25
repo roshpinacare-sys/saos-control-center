@@ -48,6 +48,17 @@ async function qr(text: string): Promise<string> {
 }
 
 export async function POST(request: Request) {
+  // §1 deny-by-default (EMERGENCY DIRECTIVE 2026-10-25): creating external shift
+  // orders (SideShift/Maya/lfi/paraswap/jupiter payloads with the platform
+  // affiliate id) is an owner prerogative. Anonymous order creation is refused
+  // BEFORE any payload is parsed and recorded in the deny ledger. Read-only
+  // quote endpoints remain public.
+  {
+    const { requireOwner } = await import('@/lib/auth');
+    const { denyAndLog } = await import('@/lib/deny-audit');
+    const owner = await requireOwner(request as never);
+    if (!owner) return denyAndLog(request as never, '/api/swap/execute', 'order creation without owner session');
+  }
   let body: Record<string, unknown>;
   try { body = await request.json() as Record<string, unknown>; }
   catch { return NextResponse.json({ ok: false, error: 'גוף-בקשה-לא-תקין' }, { status: 400 }); }

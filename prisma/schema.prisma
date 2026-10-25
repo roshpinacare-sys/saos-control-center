@@ -257,6 +257,24 @@ model GuardState {
   updatedAt DateTime @updatedAt
 }
 
+// ─── Security deny-by-default audit (EMERGENCY DIRECTIVE §1, 2026-10-25) ─────
+// Every unauthenticated mutation/recon attempt refused at a guarded route is
+// recorded here (drop + log + fail-closed). Metadata only — never request bodies,
+// never key material. The edge middleware keeps an in-memory ring; this is the
+// durable ledger of record.
+model DeniedAttempt {
+  id     String   @id @default(cuid())
+  ip     String
+  method String
+  path   String
+  reason String
+  ua     String   @default("")
+  at     DateTime @default(now())
+
+  @@index([at])
+  @@index([path, at])
+}
+
 // ─── Treasury Watcher (צופה-האוצר · EXEC-CD-26) ─────────────────────────────
 // הריבונות עוקבת-בעצמה אחרי-יתרות-כתובות-כספת-הריפו (קריאה-ציבורית-בלבד — אפס-סודות).
 // TreasurySighting = תצפית-יתרה בזמן-T; TreasuryEvent = שינוי-יתרה (מימון/שריפה) שהתגלה.

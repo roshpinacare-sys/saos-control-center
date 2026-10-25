@@ -7,6 +7,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTreasuryState, watchOnce } from '@/lib/treasury-watcher';
 import { clientIp, rateLimit } from '@/lib/rate-limit';
+import { requireOwner, agentFrom } from '@/lib/auth';
+import { denyAndLog } from '@/lib/deny-audit';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,6 +25,15 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  // §1 deny-by-default (EMERGENCY DIRECTIVE 2026-10-25): the watch tick mutates
+  // state (TreasurySighting/TreasuryEvent rows + RPC sweeps). Anonymous POSTs are
+  // refused AND recorded. The 15-min autonomy loop is unaffected — it calls
+  // watchOnce() in-process (instrumentation.ts), never through this HTTP route.
+  const owner = await requireOwner(req);
+  const agent = owner ? null : await agentFrom(req);
+  if (!owner && !agent) {
+    return denyAndLog(req, '/api/vault/treasury', 'watch-tick POST without owner session or agent token');
+  }
   const ip = clientIp(req);
   const rl = rateLimit(`treasury-watch:${ip}`, 4, 60_000);
   if (!rl.ok) {
