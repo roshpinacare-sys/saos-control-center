@@ -2,6 +2,8 @@
 // The decision core is pure — every verdict here is a law vector, not an anecdote.
 /// <reference types="bun-types" />
 import { describe, it, expect, beforeEach } from 'bun:test';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   gateDecision,
   recordDeny,
@@ -139,5 +141,71 @@ describe('security-gate · deny ring (drop+log law)', () => {
   it('recentDenies respects a smaller limit', () => {
     for (let i = 0; i < 5; i++) recordDeny({ method: 'POST', path: `/api/y/${i}`, ip: 'i', ua: 'u' });
     expect(recentDenies(2).map((r) => r.path)).toEqual(['/api/y/3', '/api/y/4']);
+  });
+});
+
+// ═══ G77-a: THE SOLDIER-NODE SURFACE LAW ═════════════════════════════════════
+// Every surface a soldier node / its agent plumbing touches, measured from the
+// route inventory @ed4ff8f (src/app/api/**/route.ts). The deny-by-default law
+// must hold on EACH: anonymous reads only on the measured public-read set;
+// anonymous writes NEVER; credential-carried requests pass through to the
+// route's own fail-closed re-verification (the edge never grants).
+const SOLDIER_NODE_SURFACES: Array<{ path: string; publicRead: boolean }> = [
+  { path: '/api/soldiers', publicRead: false },     // all-soldier activation surface — token-gated from birth (ed4ff8f)
+  { path: '/api/saos/soldiers', publicRead: true }, // public soldier list (by design law)
+  { path: '/api/saos/custody-alert', publicRead: true },
+  { path: '/api/agent/register', publicRead: false },
+  { path: '/api/agent/task', publicRead: false },   // NOT '/api/task' — the agent plane has no public rule
+  { path: '/api/agent/message', publicRead: false },
+  { path: '/api/agent/bounty', publicRead: false }, // NOT '/api/saos/bounty'
+  { path: '/api/legion', publicRead: true },
+  { path: '/api/task', publicRead: true },
+  { path: '/api/mesh', publicRead: true },
+  { path: '/api/fuel', publicRead: true },
+  { path: '/api/guard', publicRead: false },
+  { path: '/api/guardian', publicRead: false },
+];
+
+describe('security-gate · soldier-node surface law (G77-a — every surface, one law)', () => {
+  it('surface list cannot rot: every listed soldier-node surface is a real route file', () => {
+    const apiRoot = join(import.meta.dir, '..', 'app', 'api');
+    for (const s of SOLDIER_NODE_SURFACES) {
+      const routeFile = join(apiRoot, ...s.path.slice('/api/'.length).split('/'), 'route.ts');
+      expect(existsSync(routeFile)).toBe(true);
+    }
+  });
+
+  it('anonymous GET: allowed ONLY on the measured public-read set, denied otherwise', () => {
+    for (const s of SOLDIER_NODE_SURFACES) {
+      const d = gateDecision('GET', s.path, H(), null);
+      expect(d.allowed).toBe(s.publicRead);
+      expect(d.reason).toBe(s.publicRead ? 'public-read' : 'deny-by-default');
+    }
+  });
+
+  it('anonymous writes (POST/PUT/DELETE) are denied on EVERY soldier-node surface — no exceptions', () => {
+    for (const s of SOLDIER_NODE_SURFACES) {
+      for (const method of ['POST', 'PUT', 'DELETE']) {
+        const d = gateDecision(method, s.path, H(), null);
+        expect(d.allowed).toBe(false);
+        expect(d.reason).toBe('deny-by-default');
+      }
+    }
+  });
+
+  it('credential-carried requests pass THROUGH on every surface (route re-verifies, edge never grants)', () => {
+    for (const s of SOLDIER_NODE_SURFACES) {
+      const d = gateDecision('POST', s.path, H({ authorization: 'Bearer agent-token-shape' }), null);
+      expect(d.allowed).toBe(true);
+      expect(d.reason).toBe('carries-credentials');
+    }
+  });
+
+  it('the token-gated activation surface (/api/soldiers) is denied anonymous GET but passes a Bearer carrier', () => {
+    const anon = gateDecision('GET', '/api/soldiers', H(), null);
+    expect(anon.allowed).toBe(false);
+    const carried = gateDecision('GET', '/api/soldiers', H({ authorization: 'Bearer x' }), null);
+    expect(carried.allowed).toBe(true);
+    expect(carried.reason).toBe('carries-credentials');
   });
 });
