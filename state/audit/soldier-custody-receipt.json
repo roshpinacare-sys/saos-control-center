@@ -1,0 +1,571 @@
+{
+ "schema": "saos/soldier-custody-receipt/1",
+ "at": "2026-10-26T15:59:09.351Z",
+ "verdict": "CUSTODY-WOUNDS",
+ "roster": {
+  "soldiers": [
+   "cashmachine",
+   "haran",
+   "hcsoldier4",
+   "hcsoldier5",
+   "hcsoldier6",
+   "israelnews",
+   "lsa",
+   "macrame",
+   "saos-0004",
+   "siq",
+   "tov",
+   "wic",
+   "wog",
+   "woq"
+  ],
+  "sources": [
+   {
+    "source": "src/lib/soldier-activation.ts SOLDIER_ROSTER (the public soldiers API law @main)",
+    "accounts": [
+     "cashmachine",
+     "haran",
+     "israelnews",
+     "lsa",
+     "macrame",
+     "siq",
+     "tov",
+     "wic",
+     "wog",
+     "woq"
+    ],
+    "note": "headcorner appears on that surface too but is carved out here as the SOVEREIGN HEAD, never a soldier row"
+   },
+   {
+    "source": "steem-mesh-bridge DEFAULT_ROSTER (mini-services/steem-mesh-bridge/soldier-mesh-run.mjs @main)",
+    "accounts": [
+     "cashmachine",
+     "haran",
+     "israelnews",
+     "lsa",
+     "macrame",
+     "siq",
+     "tov",
+     "wic",
+     "wog",
+     "woq",
+     "hcsoldier4",
+     "hcsoldier5",
+     "hcsoldier6"
+    ]
+   },
+   {
+    "source": "G77 directive (trace 1a178c595ee6edd5): new soldier saos-0004 (born 2026-10-25T17:50:54, creator headcorner)",
+    "accounts": [
+     "saos-0004"
+    ]
+   }
+  ],
+  "sovereignHead": "headcorner",
+  "exemptions": [
+   {
+    "account": "headcorner",
+    "role": "sovereign-head",
+    "why": "keyless-in-vault BY DESIGN (master-derive) — steem@main vault truth matrix / CREDENTIAL-SOVEREIGNTY; the head is audited as the recovery_account + creator plane, not as a soldier row"
+   },
+   {
+    "account": "ynet",
+    "role": "operator-delegated",
+    "why": "operator-delegated BY DESIGN (posting account_auth headcorner:1 rescue anchor; owner/active operator-held) — out of vault scope by documented law"
+   }
+  ]
+ },
+ "counts": {
+  "soldiers": 14,
+  "verified": 0,
+  "wounds": 14
+ },
+ "vaults": [],
+ "gapLaw": {
+  "derivationAttemptable": false,
+  "reasons": [
+   "no soldier vault on this host (post-wipe; coord-work re-minted without the soldier vault)",
+   "FACTORY_MASTER dead+absent (chain-verified 2026-10-19; absent from disk+git)",
+   "ROT1 seed custody absent (/home/z/coord-work/vault/rot1-seed)",
+   "saos-0004 born 2026-10-25T17:50:54 (creator headcorner) — postdates every custody seal (vault-home last seal 2026-10-22T08:48Z)",
+   "no authority anchor over saos-0004 (owner/active/posting account_auths all empty — measured live) so the fleet cannot rotate without current key material",
+   "LIVE PROBE (measured): 0 derivation matches for saos-0004 across every documented family (steem-js seed from the owner custody line + the headcorner-keypair families) — the birth keys are not derivable from any material this host holds"
+  ],
+  "probe": {
+   "at": "2026-10-26T15:59:09.351Z",
+   "candidates": 4,
+   "families": [
+    "custody-line (raw/NFKC/no-space/secret-after-colon)",
+    "headcorner-keypair:posting-wif-as-master",
+    "headcorner-keypair:posting-wif-sha256",
+    "headcorner-keypair:posting-pub-as-master"
+   ],
+   "perAccount": [
+    {
+     "account": "saos-0004",
+     "matches": 0,
+     "hits": []
+    },
+    {
+     "account": "headcorner",
+     "matches": 1,
+     "hits": [
+      {
+       "family": "custody-line",
+       "liveRole": "posting",
+       "pubFp": "928991a2c827"
+      }
+     ]
+    }
+   ]
+  },
+  "healPath": "owner-only: supply saos-0004 birth key material (or rotate via the owner wallet) → seal → re-run audit → green"
+ },
+ "endpoints": [
+  "https://api.steemit.com",
+  "https://rpc.steemitapi.com",
+  "https://steemapi.boylikegirl.club"
+ ],
+ "soldiers": [
+  {
+   "account": "cashmachine",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-03-26T11:18:12",
+    "recoveryAccount": "headcorner",
+    "postingFp": "3c44eb31167b",
+    "activeFp": "39604bb1e321",
+    "postingPub": "STM7zzixt1a2GrsTfNqJW8fQBxyea3V3tHvsnBje2ERssCvVMsy5v",
+    "activePub": "STM76Eq7oECsDy2AYLTxcNupxKkqhvoRGbGEupTDs1NnPLq1fi8wA",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "haran",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-03-26T10:28:21",
+    "recoveryAccount": "headcorner",
+    "postingFp": "81cd47c0f30a",
+    "activeFp": "f31a3532417c",
+    "postingPub": "STM6j8FxGmiw8KsaVhQ7E1FHrtwjavyoj5s4NLoKFQuS4aZ5za9ns",
+    "activePub": "STM6CEeQnEkbo3xYMc1HBTevxC6bZakpuaBokEEqtPDfV3jb77EKw",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "hcsoldier4",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2026-10-04T15:25:51",
+    "recoveryAccount": "headcorner",
+    "postingFp": "2f10294d58e9",
+    "activeFp": "ae05c187858f",
+    "postingPub": "STM7GGJVxP5LcZT6SbDWot5AK8yYJ14yMjNVMCVevDuRYXRao9y4L",
+    "activePub": "STM59DR18EpsjTxqmTnH4SayD6dJkXpWyRtqKQJdqFFpYJfesMnDk",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "hcsoldier5",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2026-10-04T15:26:06",
+    "recoveryAccount": "headcorner",
+    "postingFp": "b8e5e5455baa",
+    "activeFp": "6c2cbe32d08a",
+    "postingPub": "STM6m1u6xZgyPYCMJZQmMUjhX5k93YCjSXtjoncDiTt7Zni96Rmj7",
+    "activePub": "STM7SrhnUPT92A6GBysRiPfDWVZk5LyKKJ6LQrECMkuZ7MNPcbaK8",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "hcsoldier6",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2026-10-04T15:26:12",
+    "recoveryAccount": "headcorner",
+    "postingFp": "064df49dad22",
+    "activeFp": "b25a17026dae",
+    "postingPub": "STM7jJXnJYqJJUci7cPAeFg2FTVvFVcpKLFkLi8Zxv34d1Ed8PrVp",
+    "activePub": "STM57AX4ZeTpG4HUZqipvsJaiV7UTN1rtiU9mPA419RYg1xiFq7sq",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "israelnews",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-03-12T17:21:15",
+    "recoveryAccount": "headcorner",
+    "postingFp": "e8b4f4f940ff",
+    "activeFp": "a97bae94e0bf",
+    "postingPub": "STM7jmiorgqLTFyQJYZfFKfVjYCAn6NkadztS7u8x1xhodY8AThLP",
+    "activePub": "STM5928HAKZUKY2G871objiHmw5sbUMPboCa4igyZpkFrnNxjRJjq",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "lsa",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:11:12",
+    "recoveryAccount": "headcorner",
+    "postingFp": "bbf2f921719e",
+    "activeFp": "50d3dfd9a03a",
+    "postingPub": "STM83ReX5Y153c3oVEHQvPBDYVWeMiNkLMhq5iioheXtrDfdBia5s",
+    "activePub": "STM5W276A4uWCxrC6A7mh9SfSk9fkcuDguANVGLhJJq2AQaNvEqpW",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "macrame",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-03-12T15:56:18",
+    "recoveryAccount": "headcorner",
+    "postingFp": "0e00a6ba7fe7",
+    "activeFp": "cc5be683835b",
+    "postingPub": "STM6S7YU1dz4TW4BCr6jc3yXzksXa9QTPt9FHm2dp7yxCRRABGD8N",
+    "activePub": "STM7RhKX4fmDkvZtt353SUxe5wu9Hq3meUQcZf7PEgJWjsZeTqocf",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "saos-0004",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc) | derivation+blessing: BLOCKED — no soldier vault on this host (post-wipe; coord-work re-minted without the soldier vault) | FACTORY_MASTER dead+absent (chain-verified 2026-10-19; absent from disk+git) | ROT1 seed custody absent (/home/z/coord-work/vault/rot1-seed) | saos-0004 born 2026-10-25T17:50:54 (creator headcorner) — postdates every custody seal (vault-home last seal 2026-10-22T08:48Z) | no authority anchor over saos-0004 (owner/active/posting account_auths all empty — measured live) so the fleet cannot rotate without current key material | LIVE PROBE (measured): 0 derivation matches for saos-0004 across every documented family (steem-js seed from the owner custody line + the headcorner-keypair families) — the birth keys are not derivable from any material this host holds | heal: owner-only: supply saos-0004 birth key material (or rotate via the owner wallet) → seal → re-run audit → green",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2026-10-25T17:50:54",
+    "recoveryAccount": "headcorner",
+    "postingFp": "b348a4bfaff7",
+    "activeFp": "685a2ee0946f",
+    "postingPub": "STM59yWnydpWbgiW3zRWTGW8MeWduXSC6EdtpQuSu9R9XwNsUwMh1",
+    "activePub": "STM6nZUCUkVpbqfr7mX1tEH5jutGa7vEY2MtWFyBrwf3qFiLCkss6",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "siq",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:12:00",
+    "recoveryAccount": "headcorner",
+    "postingFp": "71ed3613155c",
+    "activeFp": "71f9a6e52f4d",
+    "postingPub": "STM8RM4Lg9qWiT14yM8jbG7SuiEojbEmKMQbSqPn5C75eH3MmF4vd",
+    "activePub": "STM728p49t2eugJbKp6F6HZj2FUPq4PXKJfuu3EHJeiHBtNEWsjYo",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "tov",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:09:09",
+    "recoveryAccount": "headcorner",
+    "postingFp": "451f38d732ae",
+    "activeFp": "c0096dfc18d0",
+    "postingPub": "STM53yYxtW5PhKhVbxSzELqpd8Q4akygyG5PvcMcsMEYdb4TGGmTU",
+    "activePub": "STM76sNBhWrMuMKcQ51UumRFTh9xX2scTUwQvyFzFJsdBRtv3F31b",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "wic",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:07:45",
+    "recoveryAccount": "headcorner",
+    "postingFp": "4a7f6180b575",
+    "activeFp": "47c22d1e0149",
+    "postingPub": "STM5cREEW4XpgsVT9aFF71zSu5SASd7cXLVRXV2MLpaGfERMFzuAg",
+    "activePub": "STM89eNL2HcGokrdszxn5pTCaNFG6R8xMHZQeBN2t9jJk5iRkewtE",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "wog",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:04:36",
+    "recoveryAccount": "headcorner",
+    "postingFp": "dfc5c9f9b8ae",
+    "activeFp": "a9f867361cd0",
+    "postingPub": "STM5orD328yFi7N4gqFYJrkZcgzTeVtTpiG73y5HPv6vWrfMsjWxN",
+    "activePub": "STM5K7Jj5i3UNfwTX4Ub1uyamWB1L5rsr1ecdAhCrTmWwgZf3pCtQ",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  },
+  {
+   "account": "woq",
+   "role": "soldier",
+   "verdict": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "chain": {
+    "reachable": true,
+    "exists": true,
+    "created": "2018-04-12T17:16:03",
+    "recoveryAccount": "headcorner",
+    "postingFp": "248e67f2611b",
+    "activeFp": "422c89281c21",
+    "postingPub": "STM8kN8zkqFJXzUpfkXuYYfhr2xKtcAXsLQZzBgXodL2rn1YkSxiH",
+    "activePub": "STM8jNAka7cYdtNSd2DP2A77WPZdSSwuU5BzD293FKWEdXwrqSB14",
+    "ownerAccountAuths": [],
+    "postingAccountAuths": [],
+    "activeAccountAuths": []
+   },
+   "custody": {
+    "present": false,
+    "encrypted": false,
+    "shape": null,
+    "authorityMatch": null
+   }
+  }
+ ],
+ "wounds": [
+  {
+   "account": "cashmachine",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "haran",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "hcsoldier4",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "hcsoldier5",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "hcsoldier6",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "israelnews",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "lsa",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "macrame",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "saos-0004",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc) | derivation+blessing: BLOCKED — no soldier vault on this host (post-wipe; coord-work re-minted without the soldier vault) | FACTORY_MASTER dead+absent (chain-verified 2026-10-19; absent from disk+git) | ROT1 seed custody absent (/home/z/coord-work/vault/rot1-seed) | saos-0004 born 2026-10-25T17:50:54 (creator headcorner) — postdates every custody seal (vault-home last seal 2026-10-22T08:48Z) | no authority anchor over saos-0004 (owner/active/posting account_auths all empty — measured live) so the fleet cannot rotate without current key material | LIVE PROBE (measured): 0 derivation matches for saos-0004 across every documented family (steem-js seed from the owner custody line + the headcorner-keypair families) — the birth keys are not derivable from any material this host holds | heal: owner-only: supply saos-0004 birth key material (or rotate via the owner wallet) → seal → re-run audit → green",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "siq",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "tov",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "wic",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "wog",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  },
+  {
+   "account": "woq",
+   "code": "VAULT-ABSENT",
+   "why": "deny-by-default: no vault found on any lawful path (/home/z/coord-work/vaults/steem-secrets/army-keys.gcm.json, /home/z/coord-work/vaults/steem-secrets/army-keys.json, /home/z/coord-work/vault/army-keys.json, /home/z/audit/repos/saos-control-center/agent/keys/fleet_keys.enc)",
+   "at": "2026-10-26T15:59:09.351Z"
+  }
+ ],
+ "integrity": {
+  "algorithm": "sha256",
+  "sha256": "4a4d178e63d7c3c5dbc0b2931dcbbf6733836a61105fe815cf63ea494a4aed93"
+ }
+}
