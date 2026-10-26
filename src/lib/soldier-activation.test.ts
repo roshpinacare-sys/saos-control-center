@@ -72,8 +72,12 @@ describe('soldier-activation: deterministic verdicts', () => {
     expect(surface.soldiers[0].rcPct).toBe(93.42);
   });
 
-  test('canon roster is the 11 ROT1 soldiers (kept in sync across the three surfaces)', () => {
-    expect(SOLDIER_ROSTER).toHaveLength(11);
+  test('canon roster is the 11 ROT1 soldiers + saos-0004 (kept in sync across the three surfaces)', () => {
+    // G77-a: saos-0004 wire-in (additive). Measured 2026-10-26: exists on steem
+    // (created by headcorner 2026-10-25T17:50:54, block 110750412), PROVISIONED-
+    // PENDING-CHAIN-ANCHOR in the soldier vault (keys not yet rotated to us).
+    expect(SOLDIER_ROSTER).toHaveLength(12);
     expect(SOLDIER_ROSTER).toContain('headcorner');
+    expect(SOLDIER_ROSTER).toContain('saos-0004');
   });
 });
