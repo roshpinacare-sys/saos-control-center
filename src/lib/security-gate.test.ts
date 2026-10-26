@@ -72,6 +72,9 @@ describe('security-gate · deny-by-default (the directive law)', () => {
     for (const p of [
       '/api/vault/estate', '/api/vault/status', '/api/vault/sovereign',
       '/api/vault/addresses', '/api/vault/crossing', '/api/vault/verify',
+      // G76-c: the all-soldier activation surface is token-gated from birth —
+      // anonymous (credential-less) reads are refused at the edge, fail-closed.
+      '/api/soldiers',
     ]) {
       const d = gateDecision('GET', p, H(), null);
       expect(d.allowed).toBe(false);
