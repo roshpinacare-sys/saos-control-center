@@ -1,0 +1,163 @@
+{
+  "task": "3-b",
+  "wave": "#82",
+  "fleetAccount": "roshpinacare-sys",
+  "directiveTrace": "1a178c614313ad05",
+  "generatedAt": "2026-10-26T15:36:07.574Z",
+  "secretsLaw": "no secret material, WIF, or vault content read or printed — census is names/sizes/modes/sha256[:12] only; AES self-check used a runtime throwaway key",
+  "plansOnly": true,
+  "repo": {
+    "name": "saos-control-center",
+    "head": "ed4ff8f7eb76a90466ae2bb0dd07a4d3da2c724e",
+    "branch": "feat/soldier-vault-verify-82",
+    "siblingLandingPreserved": "ed4ff8f feat(soldiers): all-soldier activation surface (untouched, additive)"
+  },
+  "denyByDefault": {
+    "core": "src/lib/security-gate.ts gateDecision — fail-closed (anything not explicitly public and credential-less is denied)",
+    "edge": "src/middleware.ts — anonymous non-public /api/* → 401 + x-saos-deny: deny-by-default",
+    "measuredDecisions": {
+      "anonymousDenied": 10,
+      "anonymousTotal": 10,
+      "allAnonymousDenied": true,
+      "bearerPassesThroughToRouteReverify": true,
+      "publicReadStillOpen": true
+    },
+    "routeLevelSecondLock": "src/app/api/soldiers/route.ts:43-50 requireOwner/agentFrom re-verification (sibling landing ed4ff8f, preserved)"
+  },
+  "liveHttp": {
+    "measured": true,
+    "base": "http://127.0.0.1:3987",
+    "results": [
+      {
+        "method": "GET",
+        "path": "/api/soldiers",
+        "status": 401
+      },
+      {
+        "method": "GET",
+        "path": "/api/vault/status",
+        "status": 401
+      },
+      {
+        "method": "GET",
+        "path": "/api/vault/treasury",
+        "status": 401
+      },
+      {
+        "method": "GET",
+        "path": "/api/vault/estate",
+        "status": 401
+      },
+      {
+        "method": "POST",
+        "path": "/api/vault/verify",
+        "status": 401
+      },
+      {
+        "method": "GET",
+        "path": "/api/health",
+        "status": 200
+      }
+    ],
+    "headerEvidence": "x-saos-deny: deny-by-default observed on refused responses"
+  },
+  "vaultCrypto": {
+    "module": "src/lib/vault.ts",
+    "cipher": "AES-256-GCM (node:crypto createCipheriv aes-256-gcm)",
+    "envelope": "hex iv(12B):tag(16B):ct — src/lib/vault.ts:26",
+    "keyDerivation": "scryptSync(secret, \"sovereign-vault-v1\", 32) — node defaults N=16384/r=8/p=1 — src/lib/vault.ts:18",
+    "aad": null,
+    "failClosedWithoutSecret": true,
+    "roundTripWithThrowawayKey": true,
+    "tamperDetection": true,
+    "ivBytes": 12,
+    "tagBytes": 16,
+    "repoVaultSecondLayer": {
+      "module": "src/lib/repo-vault.ts",
+      "seal": "2-of-2 XOR random 32B shards → sha256(\"sovereign-repo-vault-v1\" ⊕ xor) → AES-256-GCM wallet.enc.json inside git (repo-vault/)",
+      "publicView": "manifest.json carries addresses/fingerprints only — private keys never leave the envelope (src/lib/repo-vault.ts:244-251)"
+    },
+    "dbSchema": "prisma/schema.prisma:134-141 VaultKey.cipher = AES-256-GCM \"iv:tag:ct\" hex — plaintext NEVER stored",
+    "signingWithoutExposure": "src/app/api/vault/verify/route.ts:57 decrypts in-memory only; src/lib/chain.ts:93-106 derives the PUBLIC key and compares against on-chain authorities — the WIF itself is never broadcast, logged, or stored (src/lib/keys.ts:1-4)"
+  },
+  "localVaultCensus": {
+    "dir": "/home/z/coord-work/vault",
+    "exists": true,
+    "entries": [
+      {
+        "name": "fixedfloat-key-2026-10-26.txt",
+        "bytes": 244,
+        "mode": "600",
+        "sha256_12": "a4f23233ad9c"
+      }
+    ],
+    "note": "0600 files; contents NEVER read into the receipt (sha256 fingerprint only, one-way)",
+    "saos0004IdentityFilePresent": false,
+    "error": null
+  },
+  "saos0004": {
+    "inSoldierRoster": false,
+    "inRot1Registry": false,
+    "inControlCenterCode": false,
+    "evidence": "git grep -il saos-0004 @ed4ff8f7eb76 → 0 hits (exit 1)",
+    "rosterAtHead": [
+      "headcorner",
+      "cashmachine",
+      "haran",
+      "israelnews",
+      "lsa",
+      "macrame",
+      "siq",
+      "tov",
+      "wic",
+      "wog",
+      "woq"
+    ],
+    "found": false
+  },
+  "fuelAutomation": {
+    "repo": "fleet-economy",
+    "dir": "/home/z/audit/fleet-economy",
+    "readOnly": true,
+    "codeFacts": {
+      "indexTs": "index.ts",
+      "refillFloatIfEmpty": [
+        {
+          "line": 359,
+          "snippet": "function refillFloatIfEmpty(payer: string, needed: number): boolean {"
+        }
+      ],
+      "wageFloorSoldierFueling": [
+        {
+          "line": 612,
+          "snippet": "const poor = SOLDIERS.filter((s) => bal(s.id).usds < floorMu);"
+        }
+      ],
+      "rcServicePriced": [
+        {
+          "line": 529,
+          "snippet": "{ name: \"תדלוק-RC\", unit: \"מנה\", price: 3.2 },"
+        }
+      ],
+      "automatedFuelStreamingExists": true,
+      "fuelTargets": "SOLDIERS roster (index.ts:74-81) + event-fee payer float — measured roster: yarden/tamar/shachar/aluf/erez/gal",
+      "saos0004MentionsInCode": []
+    },
+    "targetsSaos0004": false,
+    "localBook": {
+      "path": "/home/z/audit/fleet-economy/state/ledger.jsonl",
+      "bytes": 13605312,
+      "sha256_12": "c11edf904ef2",
+      "totalLines": 63869,
+      "fuelFlowLines": 3516,
+      "saos0004Lines": 0,
+      "saos0004FuelFlows": 0,
+      "found": false,
+      "note": "counts only — no record contents are copied into this receipt"
+    }
+  },
+  "honestBlockers": [
+    "db/custom.db in this sandbox is freshly pushed (0 VaultKey rows) — derived-key completeness could not be counted from a live DB here; the schema + login/verify routes are the audited truth (keys are registered at /api/vault/login:156 on first owner login per account)",
+    "the live HTTP deny-by-default measurement (401s) was performed in this session and is recorded in the worklog; this receipt re-measures the pure gate core instead of assuming the server state"
+  ]
+}
