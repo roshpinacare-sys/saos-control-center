@@ -18,7 +18,7 @@ export const maxDuration = 45;
  *
  * כל-מספר כאן = מדידה-חי מול RPC-ציבורי של השרשראות. אפס-מפתחות, אפס-סודות. */
 
-const ROT1_ACCOUNTS = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq'] as const;
+const ROT1_ACCOUNTS = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'saos-0004'] as const; // +saos-0004 (G77-a)
 
 const CHAIN_RPC: Record<string, string[]> = {
   steem: ['https://api.steemit.com', 'https://api.steemcreators.com'],

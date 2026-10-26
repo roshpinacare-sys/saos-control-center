@@ -21,7 +21,7 @@ import { extractBearer, verifyBearerToken } from './auth';
 
 // ── the canon roster: the ROT1 soldier identities (same list the soldiers API
 //    publishes — src/app/api/saos/soldiers/route.ts). Override: RC_REBALANCE_SOLDIERS CSV.
-export const DEFAULT_ROSTER = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq'] as const;
+export const DEFAULT_ROSTER = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'saos-0004'] as const; // +saos-0004 (G77-a fuel mesh wire-in)
 
 export interface RcRebalanceConfig {
   port: number; // 0 = ephemeral (tests/CI)
