@@ -1,136 +1,60 @@
 {
   "kind": "sovereign-repo-vault-manifest",
   "v": 1,
-  "label": "sovereign-01",
-  "createdAt": "2026-10-07T18:23:25.832Z",
+  "label": "sovereign-01-r2",
+  "createdAt": "2026-10-26T15:37:50.569Z",
   "algo": {
     "cipher": "AES-256-GCM",
     "seal": "seal.a ⊕ seal.b → sha256(\"sovereign-repo-vault-v1\" ‖ x) → AES-256 key (2-of-2 — שני-השברים-בריפו-עצמו)",
     "mnemonicWords": 24
   },
   "fingerprints": {
-    "seal.a": "bade920361454828",
-    "seal.b": "e6e775f259c9deec",
-    "mnemonic": "8df928ab29363b21"
+    "seal.a": "57dd49254d5b5956",
+    "seal.b": "ffdd0ebb9ce41329",
+    "mnemonic": "d548bc0a14a6d76e"
   },
   "networks": [
     {
       "network": "evm",
       "path": "m/44'/60'/0'/0/0",
       "label": "Ethereum וכל-EVM (ETH/POLY/ARB/OP/BASE/BSC…)",
-      "address": "0x54B17DC575c374777B66D8ee6Fb1f04DC0f1eb05",
-      "probe": {
-        "network": "evm",
-        "ok": true,
-        "activated": true,
-        "balance": "0",
-        "unit": "ETH",
-        "nonce": 0,
-        "endpoint": "https://ethereum-rpc.publicnode.com",
-        "latencyMs": 150,
-        "checkedAt": "2026-10-07T18:23:26.005Z"
-      }
+      "address": "0xea745dD2903EB89Aeab0f0430a1a92Dda363557E"
     },
     {
       "network": "tron",
       "path": "m/44'/195'/0'/0/0",
       "label": "TRON (TRX/USDT-TRC20)",
-      "address": "TPFmkfW6CbnPTSMaMkSS6xPgh7aRDE4zjH",
-      "probe": {
-        "network": "tron",
-        "ok": true,
-        "activated": false,
-        "balance": "0",
-        "unit": "TRX",
-        "endpoint": "https://api.trongrid.io/v1/accounts/…",
-        "latencyMs": 387,
-        "checkedAt": "2026-10-07T18:23:26.243Z"
-      }
+      "address": "TREoDKpFjZxrr1aV345LMyUDGqWTRhFifh"
     },
     {
       "network": "bitcoin",
       "path": "m/84'/0'/0'/0/0",
       "label": "Bitcoin (P2WPKH native-segwit)",
-      "address": "bc1q6k8h40wzmjew85r5s2qmfddptg0p48h4dhauen",
-      "probe": {
-        "network": "bitcoin",
-        "ok": true,
-        "activated": false,
-        "balance": "0",
-        "unit": "BTC",
-        "endpoint": "https://blockstream.info/api/address/…",
-        "latencyMs": 902,
-        "checkedAt": "2026-10-07T18:23:26.758Z"
-      }
+      "address": "bc1q8lz2qkp7jxx3wvyt9skf2dgm5hwpvqcejh8qr3"
     },
     {
       "network": "solana",
       "path": "m/44'/501'/0'/0'",
       "label": "Solana (SOL/SPL)",
-      "address": "hYWKEiQb5VV9HjQWiNMakJFZBm2UkuRZLrkDqrCLqDj",
-      "probe": {
-        "network": "solana",
-        "ok": true,
-        "activated": true,
-        "balance": "0",
-        "unit": "SOL",
-        "endpoint": "https://api.mainnet-beta.solana.com",
-        "latencyMs": 172,
-        "checkedAt": "2026-10-07T18:23:26.028Z"
-      }
+      "address": "EK4bEmiFeBqbhnYqTXryRp1L5v7oaWxYagNMfk5TUYP7"
     }
   ],
   "recovery": "clone repo → bun install → bun scripts/repo-vault-open.ts --probe (2-of-2: שני-השברים-חיים-בריפו)",
   "operatorOrder": "EXEC-CD-24 — תקים ארנק ותכניס אותו היטב לכספת בריפו שלא יהיה תלוי בסנדבוקס שנחמק",
   "absorbed": {
     "keys": [
-      "headcorner",
-      "door-evm-key",
-      "door-tron-key",
-      "fleet-keys-enc-a",
-      "fleet-keys-meta",
-      "wallets-registry",
-      "wallets-seed",
-      "vault-accounts",
-      "vault-inner-enc",
-      "tron-mnemonic",
-      "tron-legacy-mnemonic",
-      "headcorner-recovered",
-      "hed-soldiers-source",
-      "hcsoldier-4",
-      "hcsoldier-5",
-      "hcsoldier-6",
-      "key-broker-token",
-      "agent-env-0910",
-      "manifest-0910",
-      "upload-hed",
-      "upload-hedkor",
-      "upload-het",
-      "upload-roshcaregt",
-      "upload-ynet",
-      "upload-img-wa0025",
-      "seed-formula",
-      "seed-readme",
-      "tghk-pass",
-      "hist-passes",
-      "seed-zip",
-      "keys-zip",
-      "keys-0910-zip",
-      "keys-0929-zip",
-      "vault-inner-zip",
-      "pat-env-enc",
-      "keys-0910-zip-enc",
-      "keys-0929-zip-enc",
-      "keys-zip-enc",
-      "seed-zip-enc",
-      "try-zip",
-      "headcorner-sync",
-      "rar-pass",
-      "pat-env-sync",
-      "rot4-console-vault",
-      "hq-vault-pass"
+      "hc-steem-owner-wif-a",
+      "hc-steem-active-wif-a",
+      "hc-steem-posting-wif-a",
+      "hc-steem-memo-wif-a",
+      "hc-steem-owner-wif-b",
+      "hc-steem-active-wif-b",
+      "hc-steem-posting-wif-b",
+      "hc-steem-memo-wif-b",
+      "hc-hive-posting-wif-c",
+      "hc-corner-key-b64"
     ],
-    "at": "2026-10-10T12:31:36.462Z",
+    "at": "2026-10-26T15:38:20.945Z",
     "note": "שמות-בלבד — הערכים-חיים-רק-בתוך-המעטפת-המוצפנת (wallet.enc.json)"
   }
 }

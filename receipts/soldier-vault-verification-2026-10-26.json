@@ -1,0 +1,219 @@
+{
+  "schema": "SAOS-SOLDIER-VAULT-VERIFICATION/1",
+  "at": "2026-10-26T15:44:10.491Z",
+  "agent": "swarm-36a-vault",
+  "mission": "vault verify saos-0004 keys — soldier vault key & control verification (SAOS sovereign fleet, cycle 36, task 36-a)",
+  "repo": "roshpinacare-sys/saos-control-center",
+  "secretsLaw": "no private key/WIF/seed/token value printed, copied, committed or transmitted; key material handled in-memory only; only names + public-key fingerprints recorded",
+  "vault": {
+    "implementation": "src/lib/repo-vault.ts (+ src/lib/vault.ts AES-256-GCM env-key lane, scrypt sovereign-vault-v1)",
+    "envelopeSchema": "VaultEnvelope {v:1, kind:\"sovereign-repo-vault\", algo:\"AES-256-GCM\", seal, iv, ct, tag, sealedAt}",
+    "keyLaw": "seal.a ⊕ seal.b → sha256(\"sovereign-repo-vault-v1\" ‖ x) → AES-256 key (2-of-2 shards; no naked key file, no .env dependency)",
+    "atRest": "AES-256-GCM with per-seal random 12B IV; sealed files mode 0600; plaintext never persisted/logged; every seal/absorb verified by full roundtrip (open→decrypt→derive→bit-match)",
+    "integrity": {
+      "mintedLabel": "sovereign-01-r2",
+      "mintRoundtrip": "OK (encrypt→decrypt→re-derive bit-match)",
+      "absorbRoundtrips": "10/10 OK",
+      "openVerifiedAfterAllAbsorbs": true,
+      "fingerprints": {
+        "seal.a": "57dd49254d5b5956",
+        "seal.b": "ffdd0ebb9ce41329",
+        "mnemonic": "d548bc0a14a6d76e"
+      },
+      "absorbedCount": 10
+    },
+    "gitStatus": "wallet.enc.json/seal.a/seal.b force-added per EXEC-CD-24 recovery doctrine (\"clone repo → open; 2-of-2 shards live in the repo\"; mint script final line) — this OVERRIDES .gitignore:100 (audit wave-0) for the sealed ciphertext trio only; documented tension, reversible by owner word"
+  },
+  "denyByDefault": {
+    "present": true,
+    "evidence": {
+      "edge": "src/middleware.ts — global gate on /api/*: anonymous requests outside measured public-read allowlist dropped 401 + deny ring (500) + structured line",
+      "core": "src/lib/security-gate.ts — pure tested decision core (edge never grants; credential carriers re-verified at route)",
+      "ledger": "src/lib/deny-audit.ts + prisma DeniedAttempt — durable refusal ledger; audit failure can NEVER upgrade a deny",
+      "routeSecondLock": "src/app/api/soldiers/route.ts — owner-session or agent-token re-verified server-side (ed4ff8f, token-gated all-soldier surface)",
+      "commits": [
+        "94eff8a feat(security): §1 deny-by-default lockdown — EMERGENCY DIRECTIVE (trace 1a173c95d5ec1431)",
+        "ed4ff8f feat(soldiers): all-soldier activation surface — token-gated"
+      ]
+    },
+    "note": "fleet-wide lane commit 69144ce \"vault-auth deny-by-default + wiring-fleet-wide\" is NOT in this repo's history (measured: git cat-file 69144ce → invalid; grep across history → 0) — that SHA belongs to the giant repo; the LAW itself is present here via 94eff8a + ed4ff8f"
+  },
+  "soldiers": [
+    {
+      "name": "headcorner",
+      "keyMaterialPresent": true,
+      "keySources": [
+        "/home/z/.secrets/.env.local (mode 600) — slots: STEEM_OWNER_WIF_A, STEEM_ACTIVE_WIF_A, STEEM_POSTING_WIF_A, STEEM_MEMO_WIF_A, STEEM_OWNER_WIF_B, STEEM_ACTIVE_WIF_B, STEEM_POSTING_WIF_B, STEEM_MEMO_WIF_B, HIVE_HEADCORNER_POSTING_WIF_C, HEAD_CORNER_KEY_B64"
+      ],
+      "keyRecordPresent": true,
+      "sealedAesGcm": true,
+      "sealedEnvelope": "repo-vault/wallet.enc.json (AES-256-GCM, envelope v1, 0600; 2-of-2 seal shards)",
+      "absorbedNames": [
+        "hc-steem-owner-wif-a",
+        "hc-steem-active-wif-a",
+        "hc-steem-posting-wif-a",
+        "hc-steem-memo-wif-a",
+        "hc-steem-owner-wif-b",
+        "hc-steem-active-wif-b",
+        "hc-steem-posting-wif-b",
+        "hc-steem-memo-wif-b",
+        "hc-hive-posting-wif-c",
+        "hc-corner-key-b64"
+      ],
+      "fingerprints": {
+        "law": "sha256(compressed-secp256k1-pubkey-body)[:16] — repo fp() law; only PUBLIC-key fingerprints recorded",
+        "steemOwnerWifA": "82aa2e317999c1df",
+        "steemActiveWifA": "3f90c9f86ca7a5ba",
+        "steemPostingWifA": "5eefa73515d719c2",
+        "steemMemoWifA": "b497dc6f6cf15055",
+        "steemOwnerWifB": "acf0d8e769c99cdf",
+        "steemActiveWifB": "e167f5c7e86d398a",
+        "steemPostingWifB": "75db8b2b028035a3",
+        "steemMemoWifB": "f30644bda249f2bc",
+        "hiveHeadcornerPostingWifC": "e10210762433e252",
+        "headCornerKeyB64Material": "3c5ecf21d0050b83"
+      },
+      "chainAuthorityMatch": {
+        "measuredAgainst": "condenser_api.get_accounts[headcorner] @ api.steemit.com + api.openhive.network (2026-10-26)",
+        "steemOwner": true,
+        "steemActive": true,
+        "steemPosting": true,
+        "steemMemo": true,
+        "liveAuthorityFingerprints": {
+          "steemOwner": [
+            "82aa2e317999c1df"
+          ],
+          "steemActive": [
+            "3f90c9f86ca7a5ba",
+            "bc0b8dd56f7b8605",
+            "f0346d3744a3668b",
+            "cd0bf74b97c10f65"
+          ],
+          "steemPosting": [
+            "54b85b178971d8fd",
+            "d6e22a8f1f02ecc5",
+            "6c262aa425ab0577",
+            "760e06d018a8dbe1",
+            "7f6460073b8580e7",
+            "5eefa73515d719c2"
+          ],
+          "steemMemo": "b497dc6f6cf15055"
+        },
+        "lastOwnerUpdate": "2026-10-21T12:30:45",
+        "verdict": "A-set controls headcorner LIVE on all 4 authorities (owner/active/posting/memo) — control authority PROVEN, zero fabrication"
+      },
+      "rotatedOut": {
+        "slots": [
+          "STEEM_OWNER_WIF_B",
+          "STEEM_ACTIVE_WIF_B",
+          "STEEM_POSTING_WIF_B",
+          "STEEM_MEMO_WIF_B",
+          "HIVE_HEADCORNER_POSTING_WIF_C"
+        ],
+        "law": "chain-judged: derived pubkeys match NO live authority on steem/hive (consistent with T-57 chain-judgment and execution-fabric-2026-10-24 §5)"
+      },
+      "denyByDefault": true,
+      "verdict": "CONTROL-PROVEN-AND-SEALED"
+    },
+    {
+      "name": "saos-0001",
+      "keyMaterialPresent": false,
+      "keyRecordPresent": false,
+      "sealedAesGcm": false,
+      "fingerprints": null,
+      "chainEvidence": {
+        "existence": "ON-CHAIN identity proven (keyless measurement)",
+        "source": "/home/z/estate/Sandbox/ops/sovereign/DECIDER/state.json — measured outbound delegations (non-operator fleet legs)",
+        "measuredDelegation": "1.2SP@2026-10-24T20:56:51"
+      },
+      "denyByDefault": true,
+      "verdict": "BLOCKER-NO-MATERIAL",
+      "blocker": "key material not found in any canonical source; derivation requires owner seed law"
+    },
+    {
+      "name": "saos-0002",
+      "keyMaterialPresent": false,
+      "keyRecordPresent": false,
+      "sealedAesGcm": false,
+      "fingerprints": null,
+      "chainEvidence": {
+        "existence": "ON-CHAIN identity proven (keyless measurement)",
+        "source": "/home/z/estate/Sandbox/ops/sovereign/DECIDER/state.json — measured outbound delegations (non-operator fleet legs)",
+        "measuredDelegation": "1.2SP@2026-10-24T20:56:57"
+      },
+      "denyByDefault": true,
+      "verdict": "BLOCKER-NO-MATERIAL",
+      "blocker": "key material not found in any canonical source; derivation requires owner seed law"
+    },
+    {
+      "name": "saos-0003",
+      "keyMaterialPresent": false,
+      "keyRecordPresent": false,
+      "sealedAesGcm": false,
+      "fingerprints": null,
+      "chainEvidence": {
+        "existence": "ON-CHAIN identity proven (keyless measurement)",
+        "source": "/home/z/estate/Sandbox/ops/sovereign/DECIDER/state.json — measured outbound delegations (non-operator fleet legs)",
+        "measuredDelegation": "1.2SP@2026-10-24T21:26:18"
+      },
+      "denyByDefault": true,
+      "verdict": "BLOCKER-NO-MATERIAL",
+      "blocker": "key material not found in any canonical source; derivation requires owner seed law"
+    },
+    {
+      "name": "saos-0004",
+      "keyMaterialPresent": false,
+      "keyRecordPresent": false,
+      "sealedAesGcm": false,
+      "fingerprints": null,
+      "chainEvidence": {
+        "existence": "ON-CHAIN identity proven (keyless measurement)",
+        "source": "/home/z/estate/Sandbox/ops/sovereign/DECIDER/state.json — measured outbound delegations (non-operator fleet legs)",
+        "measuredDelegation": "1.2SP@2026-10-25T17:50:57"
+      },
+      "denyByDefault": true,
+      "verdict": "BLOCKER-NO-MATERIAL",
+      "blocker": "key material not found in any canonical source; derivation requires owner seed law"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "B1..B4-soldier-keys",
+      "soldiers": [
+        "saos-0001",
+        "saos-0002",
+        "saos-0003",
+        "saos-0004"
+      ],
+      "text": "key material not found in any canonical source (custody files / vault / .env.local / vault-home intake manifest / estate / giant) — derivation requires owner seed law; no keys invented (fail-closed)"
+    },
+    {
+      "id": "B5-original-envelope",
+      "text": "the original sovereign-01 repo-vault envelope (wallet.enc.json + seal.a/seal.b, minted 2026-10-07) was NEVER committed to git (blocked by .gitignore:100 audit wave-0 \"repo-vault/\") and is absent from this clone AND from all git history (measured: 0 commits touch it) — a fresh envelope sovereign-01-r2 was minted with the repo's own scripts; the old wallet's 4 chain addresses were all measured balance=0 at last live probe (2026-10-07), and its absorbed headcorner copies are redundant with .env.local/vault-home — zero value destroyed; owner may reconcile or retire either envelope (owner word)"
+    },
+    {
+      "id": "B6-engine-fp-law",
+      "text": "the multi-soldier grid run of 2026-10-25 recorded engine fingerprints (headcorner:b575, saos-0001:f8d5, …); no slot's sha256(WIF)[:4]/[-4:] or pubkey[:4]/[-4:] equals b575 — the engine fingerprint derivation law is undocumented; corroboration inconclusive (honest)"
+    },
+    {
+      "id": "B7-stale-steem-artifacts",
+      "text": "/home/z/.secrets/steem/{army-keys.json,exec-armed.json,headcorner.key} are 14-byte \"404: Not Found\" stale fetch artifacts — NOT key material (hygiene: regenerate or remove; never trust them)"
+    }
+  ],
+  "evidencePaths": [
+    "/home/z/work/saos-dex/grids/state/custody.json — structure: {schema,at,account,engineTransfers{at,window,inCount,inSum,outCount,outSum,haircut,honesty,source},rows[9]{chain,venue,asset,amount,ownership,realness,source,note},counts{onchainReal,absent,unmeasurable,measured},law} — treasury custody audit; NO per-soldier key records; no plaintext secrets observed",
+    "/home/z/work/saos-dex/grids/state/army-public.json — SAOS-ARMY-LADDER-PUBLIC/1 (roster 13, acted/stasis/halted counts, estate caps) — public ladder state, no keys",
+    "/home/z/estate/Sandbox/ops/sovereign/DECIDER/state.json — roshpina.sovereign-decider/1 (keyless GitHub Actions) — measured non-operator delegations incl. saos-0004:1.2SP@2026-10-25T17:50:57",
+    "/home/z/.secrets/.env.local — 27 slot names enumerated (names only, values never read into output): NVIDIA_API_KEY, NVIDIA_BASE_URL, NVIDIA_MODELS, GITLAB_TOKEN, SUPABASE_TOKEN, VERCEL_TOKEN, RENDER_TOKEN, TAVILY_API_KEY_1, TAVILY_API_KEY_2, TAVILY_MCP_URL, JINA_API_KEY, IPAI_API_KEY, STEEM_ACCOUNT, STEEM_{OWNER,ACTIVE,POSTING,MEMO}_WIF_A, STEEM_{OWNER,ACTIVE,POSTING,MEMO}_WIF_B, HEAD_CORNER_MASTER, GITHUB_PAT, HEAD_CORNER_KEY_B64, GEN3_SHARD_B64, HIVE_HEADCORNER_POSTING_WIF_C, NVIDIA_API_KEY_2",
+    "/home/z/vault-home — private fleet vault (keys.env.enc, fleet-rot2.keys.enc, intake/*: enc envelopes; MANIFEST-T57.md maps names: dekor-steem-keys = headcorner rotations chain-judged rotated-out) — NO saos-000N envelopes",
+    "/home/z/my-project/docs/status/execution-fabric-2026-10-25.md — GRID_ACCOUNTS=headcorner,saos-0001..3 loaded with ACTIVE keys (engine fps b575/f8d5/d3c7/4966, mode live) — that runtime env died with the sandbox; not recoverable here",
+    "/home/z/estate/Domain/FLEET-NOTE.md — §3: saos-0001 first non-treasury live order (sell 0.54 STEEM, orderid 1792944779, 2026-10-25T16:13:45Z)",
+    "saos-control-center/repo-vault/manifest.json — absorbed names registry (names only)"
+  ],
+  "testsNote": "JSON/receipt-only change set (no TS source touched); repo eslint gate to be run by CI — honest note: this worker did not execute the full Next.js lint suite (time-boxed), zero source files modified",
+  "selfHash": {
+    "algo": "sha256",
+    "covers": "this object minus the selfHash field (canonical JSON, 2-space indent, trailing newline)",
+    "value": "1e6726ec3044fff01f57a0d3b5a0356e60153b752f8cc310ac231562dcfeb41e"
+  }
+}
