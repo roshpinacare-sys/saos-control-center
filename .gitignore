@@ -98,3 +98,7 @@ dev.log.tail
 
 # audit wave-0 (ops-control): live-state files must never be tracked
 repo-vault/
+
+# RC-REBALANCE runtime state — live state never in git (write only its .gitkeep)
+mini-services/rc-rebalance/state/*
+!mini-services/rc-rebalance/state/.gitkeep
