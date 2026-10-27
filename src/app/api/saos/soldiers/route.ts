@@ -18,7 +18,12 @@ export const maxDuration = 45;
  *
  * כל-מספר כאן = מדידה-חי מול RPC-ציבורי של השרשראות. אפס-מפתחות, אפס-סודות. */
 
-const ROT1_ACCOUNTS = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'saos-0004'] as const; // +saos-0004 (G77-a)
+const ROT1_ACCOUNTS = [
+  // the 13 army bodies (army-keys.json census — G78-a all-soldier mesh activation)
+  'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'hcsoldier4', 'hcsoldier5', 'hcsoldier6',
+  // the fleet master + the G77-a provisioned vault body
+  'headcorner', 'saos-0004',
+] as const;
 
 const CHAIN_RPC: Record<string, string[]> = {
   steem: ['https://api.steemit.com', 'https://api.steemcreators.com'],

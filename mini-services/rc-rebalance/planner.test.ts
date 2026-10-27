@@ -97,12 +97,35 @@ describe('planner: floor + capacity laws (a, b)', () => {
     expect(plan.moves[1]).toEqual({ from: 'whale', to: 'thirsty', vests: POLICY.doseVests, seq: 2 });
   });
 
-  test('donor between target and ceiling NEVER donates (floor law)', () => {
+  test('LAW CHANGE G78-a (directive §2 mesh-opening): a ledger-rich vault-valid body donates even below the RC ceiling', () => {
+    // The old law pinned donors to rcPct≥ceiling — measured census 2026-10-27 proved
+    // that was the headcorner-only bottleneck: 7 vault-valid soldiers with spare vests
+    // sat idle (RC 76–88 < 85) while the master vault is BLOCKED-honest. Delegating
+    // VESTS spends no mana, so ledger spare (with the floor guard) is the donor law.
     const measures = [
-      m({ account: 'midrich', rcPct: 70, vestingShares: 50_000_000 }), // plenty of vests but mana < ceiling
+      m({ account: 'midrich', rcPct: 70, vestingShares: 50_000_000 }), // plenty of vests, mana < ceiling
       m({ account: 'thirsty', rcPct: 10, vestingShares: 1_000_000 }),
     ];
     const plan = planRebalance({ roster: ['midrich', 'thirsty'], measures, policy: POLICY, nowMs: NOW });
+    expect(plan.ok).toBe(true);
+    expect(plan.moves.length).toBe(POLICY.maxDosesPerReceiver);
+    expect(plan.moves.every((x) => x.from === 'midrich')).toBe(true);
+    // the ceiling-class whale STILL outranks ledger-rich non-ceiling bodies (priority law)
+    const both = planRebalance({
+      roster: ['midrich', 'whale', 'thirsty'],
+      measures: [...measures, m({ account: 'whale', rcPct: 99, vestingShares: 50_000_000 })],
+      policy: POLICY,
+      nowMs: NOW,
+    });
+    expect(both.moves[0].from).toBe('whale');
+  });
+
+  test('a soldier at/below the RC floor NEVER donates (the remaining floor law)', () => {
+    const measures = [
+      m({ account: 'floor-poor', rcPct: 15, vestingShares: 50_000_000 }), // below floor 20 — never a donor
+      m({ account: 'thirsty', rcPct: 10, vestingShares: 1_000_000 }),
+    ];
+    const plan = planRebalance({ roster: ['floor-poor', 'thirsty'], measures, policy: POLICY, nowMs: NOW });
     expect(plan.ok).toBe(true);
     expect(plan.moves).toEqual([]);
     expect(plan.reason).toBe('no-viable-donors');

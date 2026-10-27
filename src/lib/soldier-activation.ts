@@ -50,7 +50,12 @@ export interface ActivationSurface {
  * (src/app/api/saos/soldiers/route.ts) and the rc-rebalance mesh balances
  * (mini-services/rc-rebalance/index.ts DEFAULT_ROSTER). Keep the three in sync.
  */
-export const SOLDIER_ROSTER = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'saos-0004'] as const; // +saos-0004 (G77-a, PROVISIONED-PENDING-CHAIN-ANCHOR — measured on steem 2026-10-26)
+export const SOLDIER_ROSTER = [
+  // the 13 army bodies (army-keys.json census — G78-a all-soldier mesh activation)
+  'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'hcsoldier4', 'hcsoldier5', 'hcsoldier6',
+  // the fleet master + the G77-a provisioned vault body (PROVISIONED-PENDING-CHAIN-ANCHOR — measured on steem 2026-10-26)
+  'headcorner', 'saos-0004',
+] as const;
 
 export interface ActivationInput {
   roster: ReadonlyArray<string>;

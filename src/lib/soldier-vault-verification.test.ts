@@ -160,15 +160,38 @@ describe('(c) soldier roster/registry — zero plaintext key fields; saos-0004 p
     }
   });
 
-  it('saos-0004 presence state — measured, not assumed (currently ABSENT from both registries)', () => {
+  it('the full all-soldier mesh census (G78-a): 13 army bodies + headcorner + saos-0004, registered in BOTH registries', () => {
+    const ARMY = ['cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'hcsoldier4', 'hcsoldier5', 'hcsoldier6'];
+    const roster = activation.SOLDIER_ROSTER as readonly string[];
+    const rot1 = keysMod.ROT1_ACCOUNTS;
+    // every army body is registered in both registries — the census is 15/15 names
+    for (const a of ARMY) {
+      expect(roster.includes(a)).toBe(true);
+      expect(rot1.includes(a)).toBe(true);
+    }
+    expect(roster.includes('headcorner')).toBe(true);
+    expect(rot1.includes('headcorner')).toBe(true);
+    expect(roster.includes('saos-0004')).toBe(true);
+    expect(rot1.includes('saos-0004')).toBe(true);
+    // the mesh balances the same census (three-roster sync law)
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const mesh = require('../../mini-services/rc-rebalance/index') as typeof import('../../mini-services/rc-rebalance/index');
+    const meshRoster = mesh.DEFAULT_ROSTER as readonly string[];
+    for (const a of [...ARMY, 'headcorner', 'saos-0004']) expect(meshRoster.includes(a)).toBe(true);
+  });
+
+  it('saos-0004 + hcsoldier4/5/6 presence state — measured, not assumed (registered since G77-a/G78-a)', () => {
+    // The honest measured truth: saos-0004 was wire-in registered by G77-a (fuel mesh),
+    // and G78-a completed the census with hcsoldier4/5/6 — the pre-G78 pin ("absent")
+    // was updated with the same plaintext-field audit, never silently.
     const inRoster = (activation.SOLDIER_ROSTER as readonly string[]).includes('saos-0004');
     const inRot1 = keysMod.ROT1_ACCOUNTS.includes('saos-0004');
-    // The honest measured state at HEAD ed4ff8f: saos-0004 is NOT registered in
-    // the control-center soldier registries. If a future PR adds it, THIS test
-    // must be updated together with a plaintext-field audit — the assertion
-    // below pins today's truth so the change is never silent.
-    expect(inRoster).toBe(false);
-    expect(inRot1).toBe(false);
+    expect(inRoster).toBe(true);
+    expect(inRot1).toBe(true);
+    for (const s of ['hcsoldier4', 'hcsoldier5', 'hcsoldier6']) {
+      expect((activation.SOLDIER_ROSTER as readonly string[]).includes(s)).toBe(true);
+      expect(keysMod.ROT1_ACCOUNTS.includes(s)).toBe(true);
+    }
   });
 });
 

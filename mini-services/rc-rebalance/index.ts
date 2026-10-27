@@ -18,10 +18,16 @@ import { planRebalance, type RebalancePlan, type RebalancePolicy, type SoldierMe
 import { measureSoldiers } from './measure';
 import { writeDelegationDrafts } from './execute';
 import { extractBearer, verifyBearerToken } from './auth';
+import { applyArmedLaw, lawFromExecArmed, loadCensusVaultVerdicts, loadExecArmedLaw, type ArmedDelegationLaw } from './armed-policy';
 
 // ── the canon roster: the ROT1 soldier identities (same list the soldiers API
 //    publishes — src/app/api/saos/soldiers/route.ts). Override: RC_REBALANCE_SOLDIERS CSV.
-export const DEFAULT_ROSTER = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'saos-0004'] as const; // +saos-0004 (G77-a fuel mesh wire-in)
+export const DEFAULT_ROSTER = [
+  // the 13 army bodies (army-keys.json census — G78-a all-soldier mesh)
+  'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq', 'hcsoldier4', 'hcsoldier5', 'hcsoldier6',
+  // the fleet master (delegator-in-chief) + the G77-a provisioned vault body
+  'headcorner', 'saos-0004',
+] as const;
 
 export interface RcRebalanceConfig {
   port: number; // 0 = ephemeral (tests/CI)
@@ -34,6 +40,12 @@ export interface RcRebalanceConfig {
   policy: RebalancePolicy;
   autoStart?: boolean; // default true; false = beats only via beat()/once
   log?: boolean;
+  /** exec-armed.json path — the MEASURED delegation law (G78-a §2.3). null = unarmed fail-closed. */
+  execArmedPath?: string | null;
+  /** measured census path — BLOCKED-honest bodies never appear as delegators (G78-a) */
+  censusPath?: string | null;
+  /** injectable law (tests/CI); when absent, loaded from execArmedPath each beat */
+  law?: ArmedDelegationLaw;
 }
 
 export interface BeatSummary {
@@ -46,6 +58,10 @@ export interface BeatSummary {
   planOk: boolean;
   planId: string | null;
   blocked: number;
+  /** moves refused by the measured exec-armed delegation law (G78-a §2.3) */
+  armedRefused: number;
+  /** the measured law source ('unarmed' = fail-closed, zero armed drafts) */
+  lawArmed: boolean;
 }
 
 export interface RcRebalanceInstance {
@@ -93,6 +109,16 @@ const say = (log: boolean, line: unknown) => {
   if (log) console.log(typeof line === 'string' ? line : JSON.stringify(line));
 };
 
+/** The armed-law source of truth: exec-armed.json (policy METADATA only — never keys). */
+export function execArmedPathFromEnv(): string {
+  return process.env.RC_REBALANCE_EXEC_ARMED_PATH?.trim() || '/home/z/coord-work/vaults/steem-secrets/exec-armed.json';
+}
+
+/** The measured census (state/soldier-census.json) — BLOCKED-honest bodies never broadcast. */
+export function censusPathFromEnv(): string {
+  return process.env.RC_REBALANCE_CENSUS_PATH?.trim() || `${import.meta.dir}/../../state/soldier-census.json`;
+}
+
 export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
   const startedAt = Date.now();
   const authMode: 'token' | 'fail-closed' = cfg.token ? 'token' : 'fail-closed';
@@ -105,6 +131,9 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
   let inFlight: Promise<BeatSummary> | null = null;
   let timer: ReturnType<typeof setInterval> | null = null;
   let stopped = false;
+  let lastLaw: ArmedDelegationLaw | null = null;
+  let lastLawSource = 'unarmed (no beat yet)';
+  let lastArmedRefused: ReturnType<typeof applyArmedLaw>['refused'] = [];
 
   const json = (body: unknown, status = 200) =>
     new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
@@ -131,8 +160,30 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
       };
     }
 
-    const drafts = await writeDelegationDrafts(plan, cfg.draftsPath);
-    lastPlan = plan;
+    // ── the MEASURED exec-armed delegation law (G78-a §2.3): a planner move only
+    //    becomes a draft when the armed law allows it (allowlist + keep-gate + cap).
+    //    Unarmed/unreadable policy → ALL moves refused, zero armed drafts (fail-closed).
+    let law: ArmedDelegationLaw;
+    if (cfg.law) {
+      law = cfg.law;
+      lastLawSource = law.source;
+    } else {
+      const lawRes = await loadExecArmedLaw(cfg.execArmedPath ?? execArmedPathFromEnv());
+      law = lawRes.law;
+      lastLawSource = law.source;
+    }
+    const censusVerdicts = cfg.law ? new Map<string, boolean>() : await loadCensusVaultVerdicts(cfg.censusPath ?? censusPathFromEnv());
+    const verdict = applyArmedLaw(
+      plan.moves,
+      law,
+      measuredRes.measures.map((m) => ({ account: m.account, vestingShares: m.vestingShares, delegatedOut: m.delegatedOut, vaultValid: censusVerdicts.get(m.account) })),
+    );
+    const armedPlan: RebalancePlan = { ...plan, moves: verdict.allowed };
+
+    const drafts = await writeDelegationDrafts(armedPlan, cfg.draftsPath);
+    lastPlan = armedPlan;
+    lastLaw = law;
+    lastArmedRefused = verdict.refused;
     beats += 1;
 
     const summary: BeatSummary = {
@@ -145,6 +196,8 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
       planOk: plan.ok,
       planId: plan.planId || null,
       blocked: plan.blocked.length,
+      armedRefused: verdict.refused.length,
+      lawArmed: law.armed && law.allowDelegation,
     };
     lastBeat = summary;
 
@@ -158,8 +211,10 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
       policy: cfg.policy,
       beats,
       lastBeat: summary,
-      lastPlan: plan,
+      lastPlan: armedPlan,
       lastMeasures,
+      armedLaw: { source: law.source, armed: law.armed, allowDelegation: law.allowDelegation, maxOpsPerCycle: law.maxOpsPerCycle, minRcPct: law.minRcPct, masterKeepPct: law.masterKeepPct, delegators: law.delegators, recipients: law.recipients },
+      armedRefused: verdict.refused,
       custody: { keyMaterial: 'never-touched', broadcast: false, draftsOnly: true },
     });
 
@@ -168,7 +223,7 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
   }
 
   async function beat(): Promise<BeatSummary> {
-    if (stopped) return lastBeat ?? { at: new Date().toISOString(), ok: false, reason: 'service-stopped', measured: 0, moves: 0, drafted: 0, planOk: false, planId: null, blocked: 0 };
+    if (stopped) return lastBeat ?? { at: new Date().toISOString(), ok: false, reason: 'service-stopped', measured: 0, moves: 0, drafted: 0, planOk: false, planId: null, blocked: 0, armedRefused: 0, lawArmed: false };
     const racing = inFlight;
     if (racing) await racing.catch(() => undefined);
     const b = doBeat();
@@ -213,6 +268,9 @@ export function startService(cfg: RcRebalanceConfig): RcRebalanceInstance {
           lastMeasures: lastMeasures
             .filter((m) => m.source === 'chain')
             .map((m) => ({ account: m.account, rcPct: m.rcPct })),
+          armedLaw: lastLaw
+            ? { source: lastLaw.source, armed: lastLaw.armed, allowDelegation: lastLaw.allowDelegation, maxOpsPerCycle: lastLaw.maxOpsPerCycle, minRcPct: lastLaw.minRcPct, masterKeepPct: lastLaw.masterKeepPct }
+            : { source: lastLawSource, armed: false, allowDelegation: false },
         });
       }
 
@@ -263,6 +321,8 @@ if (import.meta.main) {
     policy: defaultPolicyFromEnv(),
     autoStart: !once,
     log: !once,
+    execArmedPath: execArmedPathFromEnv(),
+    censusPath: censusPathFromEnv(),
   };
 
   if (once) {

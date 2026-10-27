@@ -15,9 +15,16 @@
 //    the custody-gated executor (army-keys custody is gated; we never touch keys).
 //
 // LAWS (each enforced here and tested in planner.test.ts):
-//  (a) FLOOR     — donors are only soldiers whose measured mana is at/above the
-//                  donation ceiling; a donor's post-move vesting ledger never dips
-//                  below its reservation floor. No soldier is pushed below the floor.
+//  (a) FLOOR     — a donor's post-move vesting ledger never dips below its
+//                  reservation floor, and a soldier measured at/below the RC floor
+//                  never donates. G78-a MESH-OPENING LAW (directive §2): donors are
+//                  LEDGER-capable bodies — delegating VESTS spends no mana, so the
+//                  old rcPct≥ceiling donor gate is no longer REQUIRED (it was the
+//                  headcorner-only bottleneck: measured census 2026-10-27 showed 7
+//                  vault-valid soldiers with spare vests idle at RC 76–88 < 85 while
+//                  the master's vault is BLOCKED-honest). Ceiling accounts (wasting
+//                  regen) still get absolute donor priority — they are simply the
+//                  classic case, never again the only case.
 //  (b) CAPACITY  — the sum of a donor's planned outflows never exceeds its spare:
 //                  vestingShares − delegatedOut − reservationVests (exact ledger math).
 //  (c) IDEMPOTENCE — pure function of (roster, measures, policy): same inputs ⇒
@@ -171,13 +178,16 @@ export function planRebalance(input: PlannerInput): RebalancePlan {
     .filter((x) => (x.rcPct as number) < policy.targetPct)
     .sort((a, b) => (a.rcPct as number) - (b.rcPct as number) || a.account.localeCompare(b.account));
 
-  // ── donors: at/above ceiling with real spare capacity (law (a) + (b)) ──
+  // ── donors: ledger-capable + floor-guarded (law (a), G78-a mesh-opening) ──
+  // A vault-valid body with real spare vests may donate even below the RC ceiling
+  // — delegation moves vesting shares, it does not spend the donor's mana. The
+  // floor guard still refuses any soldier measured at/below floorPct.
   const spareOf = (x: SoldierMeasure): MicroVests => x.vestingShares - x.delegatedOut - policy.reservationVests;
   const donors = live
-    .filter((x) => (x.rcPct as number) >= policy.ceilingPct)
-    .map((x) => ({ account: x.account, spare: spareOf(x) }))
+    .filter((x) => (x.rcPct as number) >= policy.floorPct)
+    .map((x) => ({ account: x.account, spare: spareOf(x), ceiling: (x.rcPct as number) >= policy.ceilingPct }))
     .filter((d) => d.spare >= policy.doseVests)
-    .sort((a, b) => b.spare - a.spare || a.account.localeCompare(b.account));
+    .sort((a, b) => (b.ceiling ? 1 : 0) - (a.ceiling ? 1 : 0) || b.spare - a.spare || a.account.localeCompare(b.account));
 
   const moves: DelegationMove[] = [];
   const dosesByReceiver = new Map<string, number>();

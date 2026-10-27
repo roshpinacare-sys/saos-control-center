@@ -106,6 +106,17 @@ export function wifFromRot1Seed(masterHex: string, account: string, chain: strin
   return out;
 }
 
-export const ROT1_ACCOUNTS = ['headcorner', 'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq'];
+// The fleet census registry (G78-a all-soldier mesh): the 13 army bodies from
+// army-keys.json + the fleet master (headcorner) + the G77-a provisioned vault
+// body (saos-0004). Names only — this registry never carries key material.
+// MUST stay in sync with SOLDIER_ROSTER (src/lib/soldier-activation.ts),
+// ROT1_ACCOUNTS (src/app/api/saos/soldiers/route.ts) and DEFAULT_ROSTER
+// (mini-services/rc-rebalance/index.ts) — the registry-equality test pins it.
+export const ROT1_ACCOUNTS = [
+  'headcorner',
+  'cashmachine', 'haran', 'israelnews', 'lsa', 'macrame', 'siq', 'tov', 'wic', 'wog', 'woq',
+  'hcsoldier4', 'hcsoldier5', 'hcsoldier6', // G78-a: army census completion
+  'saos-0004', // G77-a fuel-mesh wire-in (vault-provisioned body)
+];
 export const ROT1_CHAINS: Chain[] = ['steem', 'hive', 'blurt'];
 export const ROT1_ROLES: Role[] = ['owner', 'active', 'posting', 'memo'];
