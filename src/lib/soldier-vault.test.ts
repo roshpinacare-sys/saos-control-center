@@ -32,7 +32,7 @@ afterAll(() => {
 
 // deterministic 32-byte scalars for pinned tests (never real custody material)
 const SCALAR1 = Buffer.alloc(32, 0); SCALAR1[31] = 1;
-const detRng = (): (() => Buffer) => {
+const detRng = (): ((n: number) => Buffer) => {
   let i = 0;
   return (n: number) => {
     i += 1;
