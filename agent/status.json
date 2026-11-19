@@ -1,12 +1,12 @@
 {
  "agent": "control-center-build",
- "generatedAt": "2026-10-24T16:02:50Z",
- "verdict": "PASS",
+ "generatedAt": "2026-11-19T14:27:36Z",
+ "verdict": "FAIL",
  "checks": {
   "install": "pass",
   "prismaGenerate": "pass",
   "typecheck": "pass",
-  "productionBuild": "pass"
+  "productionBuild": "fail"
  },
- "reason": "install, typecheck and build all pass"
+ "reason": "install=pass prisma=pass tsc=pass build=fail"
 }
