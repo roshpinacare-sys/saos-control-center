@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Heebo, JetBrains_Mono } from "next/font/google";
+import { Heebo } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 // FIX(Roast-63 · M10): היה-<link>-גוגל-פונטס-בתוך-<body> (אזהרת-no-page-custom-font,
